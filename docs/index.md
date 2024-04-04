@@ -1,1 +1,3 @@
-xxx
+<div align = "center">In this sandbox, I share tests, things ans stuff I've done with <a href = "https://observablehq.com/framework/" target = "_BLANK">Observable Framework</a>. This is self-learning process. If things are done in a wrong way, it's because I'm still on my way to learning. If you have any suggestions or comments, don't hesitate to use <a href = "https://github.com/neocarto/observable-sandbox/issues" taret = "_BLANK">github issues</a></div>
+<br/>
+<div align = "center">If you prefer, you'll find many other examples in <a href = "https://observablehq.com/user/@neocartocnrs" taret = "_BLANK">Observable Notbooks</a></div>
