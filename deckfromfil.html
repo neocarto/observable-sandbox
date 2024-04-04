@@ -12,7 +12,7 @@
 <link rel="modulepreload" href="./_observablehq/client.js">
 <link rel="modulepreload" href="./_observablehq/runtime.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.js">
-<link rel="modulepreload" href="./_npm/deck.gl@9.0.4/dist.min.js/_esm.js">
+<link rel="modulepreload" href="./_npm/deck.gl@9.0.5/dist.min.js/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/_esm.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.0/_esm.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
@@ -59,7 +59,7 @@
 import {define} from "./_observablehq/client.js";
 import {registerFile} from "./_observablehq/stdlib.js";
 
-registerFile("./data/uk-accidents.csv", {"name":"./data/uk-accidents.csv","mimeType":"text/csv","path":"./_file/data/uk-accidents.459f69e3.csv","lastModified":1712242918203});
+registerFile("./data/uk-accidents.csv", {"name":"./data/uk-accidents.csv","mimeType":"text/csv","path":"./_file/data/uk-accidents.459f69e3.csv","lastModified":1712243551222});
 
 define({id: "0b7af5d0", inline: true, inputs: ["d3","data","display"], body: async (d3,data,display) => {
 display(await(
@@ -171,7 +171,7 @@ deckInstance.setProps({
 }});
 
 define({id: "1051e927", outputs: ["deck","DeckGL","AmbientLight","GeoJsonLayer","HexagonLayer","LightingEffect","PointLight"], body: async () => {
-const {default: deck} = await import("./_npm/deck.gl@9.0.4/dist.min.js/_esm.js");
+const {default: deck} = await import("./_npm/deck.gl@9.0.5/dist.min.js/_esm.js");
 // import {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight} from "npm:deck.gl"; doesn't work
 const {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight} = deck;
 return {deck,DeckGL,AmbientLight,GeoJsonLayer,HexagonLayer,LightingEffect,PointLight};

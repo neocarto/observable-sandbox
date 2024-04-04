@@ -10,14 +10,14 @@
 <link rel="modulepreload" href="./_observablehq/client.js">
 <link rel="modulepreload" href="./_observablehq/runtime.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.js">
-<link rel="modulepreload" href="./_npm/deck.gl@9.0.4/dist.min.js/_esm.js">
+<link rel="modulepreload" href="./_npm/deck.gl@9.0.5/dist.min.js/_esm.js">
 <link rel="modulepreload" href="./_npm/maplibre-gl@4.1.2/_esm.js">
 <script type="module">
 
 import {define} from "./_observablehq/client.js";
 
 define({id: "0f0e6f84", outputs: ["deck","DeckGL","ScatterplotLayer"], body: async () => {
-const {default: deck} = await import("./_npm/deck.gl@9.0.4/dist.min.js/_esm.js");
+const {default: deck} = await import("./_npm/deck.gl@9.0.5/dist.min.js/_esm.js");
 ;
 const {DeckGL, ScatterplotLayer} = deck;
 return {deck,DeckGL,ScatterplotLayer};
