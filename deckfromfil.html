@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>An example from Fil | Sandbox</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight,alt,wide.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight,alt,wide.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
+<link rel="modulepreload" href="./_observablehq/client.js">
+<link rel="modulepreload" href="./_observablehq/runtime.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="./_npm/deck.gl@9.0.4/dist.min.js/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/_esm.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.14/_esm.js">
+<link rel="modulepreload" href="./_npm/topojson-client@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/_esm.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/_esm.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/_esm.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/_esm.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/_esm.js">
+<script type="module">
+
+import {define} from "./_observablehq/client.js";
+import {registerFile} from "./_observablehq/stdlib.js";
+
+registerFile("./data/uk-accidents.csv", {"name":"./data/uk-accidents.csv","mimeType":"text/csv","path":"./_file/data/uk-accidents.459f69e3.csv","lastModified":1712236623000});
+
+define({id: "0b7af5d0", inline: true, inputs: ["d3","data","display"], body: async (d3,data,display) => {
+display(await(
+d3.format(".4s")(data.length)
+))
+}});
+
+define({id: "ab721527", inline: true, inputs: ["colorLegend","display"], body: async (colorLegend,display) => {
+display(await(
+colorLegend
+))
+}});
+
+define({id: "b7f251ce", inputs: ["view","Inputs"], outputs: ["radius","coverage","upperPercentile","replay"], body: (view,Inputs) => {
+const radius = view(Inputs.range([500, 20000], {value: 1000, label: "radius", step: 100}));
+const coverage = view(Inputs.range([0, 1], {value: 1, label: "coverage", step: 0.01}));
+const upperPercentile = view(Inputs.range([0, 100], {value: 100, label: "upper percentile", step: 1}));
+const replay = view(Object.assign(Inputs.button("↻"), {style: "position: absolute; right: 14px; width: 2em;"}));
+return {radius,coverage,upperPercentile,replay};
+}});
+
+define({id: "271daccf", inputs: ["Plot"], outputs: ["colorRange","colorLegend"], body: (Plot) => {
+const colorRange = [
+  [1, 152, 189],
+  [73, 227, 206],
+  [216, 254, 181],
+  [254, 237, 177],
+  [254, 173, 84],
+  [209, 55, 78]
+];
+
+const colorLegend = Plot.plot({
+  margin: 0,
+  marginTop: 20,
+  width: 270,
+  height: 35,
+  x: {padding: 0, round: false, axis: null},
+  marks: [
+    Plot.cellX(colorRange, {fill: ([r, g, b]) => `rgb(${r},${g},${b})`}),
+    Plot.text(["Fewer"], {frameAnchor: "top-left", dy: -12}),
+    Plot.text(["More"], {frameAnchor: "top-right", dy: -12})
+  ]
+});
+return {colorRange,colorLegend};
+}});
+
+define({id: "aae68c2f", inputs: ["replay","Generators","d3"], outputs: ["transition"], body: (replay,Generators,d3) => {
+const transition =
+  (replay,
+  Generators.queue((notify) => {
+    const duration = 900;
+    const delay = 500;
+    const t = d3.timer((elapsed) => {
+      if (elapsed > duration) t.stop();
+      notify(d3.easeCubicInOut(elapsed / duration));
+    }, delay);
+  }));
+return {transition};
+}});
+
+define({id: "3ed06537", inputs: ["container","DeckGL","initialViewState","effects","invalidation"], outputs: ["deckInstance"], body: (container,DeckGL,initialViewState,effects,invalidation) => {
+container.innerHTML = "";
+const deckInstance = new DeckGL({
+  container,
+  initialViewState,
+  controller: true,
+  effects,
+  getTooltip: ({object}) => {
+    if (!object) return null;
+    const [lng, lat] = object.position;
+    const count = object.points.length;
+    return `\
+    latitude: ${lat.toFixed(2)}
+    longitude: ${lng.toFixed(2)}
+    ${count} accidents
+  `;
+  }
+});
+
+invalidation.then(() => deckInstance.finalize());
+return {deckInstance};
+}});
+
+define({id: "dddd4aa0", inputs: ["deckInstance","GeoJsonLayer","countries","HexagonLayer","colorRange","coverage","data","transition","radius","upperPercentile","material"], body: (deckInstance,GeoJsonLayer,countries,HexagonLayer,colorRange,coverage,data,transition,radius,upperPercentile,material) => {
+deckInstance.setProps({
+  layers: [
+    new GeoJsonLayer({
+      id: "base-map",
+      data: countries,
+      lineWidthMinPixels: 1,
+      getLineColor: [60, 60, 60]
+    }),
+    new HexagonLayer({
+      id: "heatmap",
+      colorRange,
+      coverage,
+      data,
+      elevationScale: 50,
+      elevationRange: [0, 3000 * transition],
+      extruded: true,
+      getPosition: (d) => d,
+      pickable: true,
+      radius,
+      upperPercentile,
+      material
+    })
+  ]
+});
+}});
+
+define({id: "1051e927", outputs: ["deck","DeckGL","AmbientLight","GeoJsonLayer","HexagonLayer","LightingEffect","PointLight"], body: async () => {
+const {default: deck} = await import("./_npm/deck.gl@9.0.4/dist.min.js/_esm.js");
+// import {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight} from "npm:deck.gl"; doesn't work
+const {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight} = deck;
+return {deck,DeckGL,AmbientLight,GeoJsonLayer,HexagonLayer,LightingEffect,PointLight};
+}});
+
+define({id: "35ba5c53", inputs: ["AmbientLight","PointLight","LightingEffect"], outputs: ["material","ambientLight","pointLight1","pointLight2","effects","initialViewState"], body: (AmbientLight,PointLight,LightingEffect) => {
+const material = {ambient: 0.64, diffuse: 0.6, shininess: 32, specularColor: [51, 51, 51]};
+
+const ambientLight = new AmbientLight({color: [255, 255, 255], intensity: 1.0});
+
+const pointLight1 = new PointLight({color: [255, 255, 255], intensity: 0.8, position: [-0.144528, 49.739968, 80000]});
+
+const pointLight2 = new PointLight({color: [255, 255, 255], intensity: 0.8, position: [-3.807751, 54.104682, 8000]});
+
+const effects = [new LightingEffect({ambientLight, pointLight1, pointLight2})];
+
+const initialViewState = {
+  longitude: -2,
+  latitude: 53.5,
+  zoom: 5.7,
+  minZoom: 5,
+  maxZoom: 15,
+  pitch: 40.5,
+  bearing: -5
+};
+return {material,ambientLight,pointLight1,pointLight2,effects,initialViewState};
+}});
+
+define({id: "fd73cf82", inputs: ["FileAttachment","display"], outputs: ["data"], body: async (FileAttachment,display) => {
+const data = await FileAttachment("./data/uk-accidents.csv").csv({array: true, typed: true});
+display(data)
+return {data};
+}});
+
+define({id: "f7b13ea2", inputs: ["topojson"], outputs: ["topo","world","countries"], body: async (topojson) => {
+const topo = new URL("./_npm/visionscarto-world-atlas@1.0.0/world/50m.json", location).href;
+const world = await fetch(topo).then((response) => response.json());
+const countries = topojson.feature(world, world.objects.countries);
+return {topo,world,countries};
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">Sandbox</a></li>
+  </ol>
+  <div id="observablehq-search"><input type="search" placeholder="Search"></div>
+  <div id="observablehq-search-results"></div>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const a=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(a.classList.add("observablehq-sidebar-open"),t.focus(),t.select(),e.preventDefault())}),t.addEventListener("blur",()=>a.classList.remove("observablehq-sidebar-open"));}</script>
+  <ol>
+    <details open>
+      <summary>Geoviz</summary>
+      <ol>
+    <li class="observablehq-link"><a href="./geoviz_globe">Globe</a></li>
+      </ol>
+    </details>
+    <details open>
+      <summary>Maplibre</summary>
+      <ol>
+    <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
+      </ol>
+    </details>
+    <details open>
+      <summary>Deckgl</summary>
+      <ol>
+    <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
+      </ol>
+    </details>
+    <details open class="observablehq-section-active">
+      <summary>Examples from others</summary>
+      <ol>
+    <li class="observablehq-link observablehq-link-active"><a href="./deckfromfil">Deck-gl from Fil</a></li>
+      </ol>
+    </details>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<header id="observablehq-header">
+<hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
+</header>
+<main id="observablehq-main" class="observablehq">
+<h1 id="an-example-from-fil" tabindex="-1"><a class="observablehq-header-anchor" href="#an-example-from-fil">An example from Fil</a></h1>
+<p>See <a href="https://observablehq.observablehq.cloud/pangea/party/deck.gl-map" target="_blank" rel="noopener noreferrer">https://observablehq.observablehq.cloud/pangea/party/deck.gl-map</a></p>
+<div style="width: 100%; position: relative;">
+<div class="card" style="max-width: 270px; position: absolute; top:0; margin-left: 14px; right:14px; z-index:1;">
+<h1 id="uk-road-safety" tabindex="-1"><a class="observablehq-header-anchor" href="#uk-road-safety">UK Road Safety</a></h1>
+<h2 id="personal-injury-road-accidents-from-1979" tabindex="-1"><a class="observablehq-header-anchor" href="#personal-injury-road-accidents-from-1979">Personal injury road accidents from 1979</a></h2>
+<h1 id="accidents" tabindex="-1"><a class="observablehq-header-anchor" href="#accidents"><span id="cell-0b7af5d0" class="observablehq--loading"></span> ACCIDENTS</a></h1>
+<p><span id="cell-ab721527" class="observablehq--loading"></span></p>
+<div style="font-size: small; text-align: right; font-style: italic;"><a href="https://www.data.gov.uk/" target="_blank" rel="noopener noreferrer">data.gov.uk</a></div>
+<div id="cell-b7f251ce" class="observablehq observablehq--block"></div>
+</div>
+<div id="container" style="background: #000; height: 800px; width: 100%;"></div>
+</div>
+<div id="cell-271daccf" class="observablehq observablehq--block"></div>
+<div id="cell-aae68c2f" class="observablehq observablehq--block"></div>
+<div id="cell-3ed06537" class="observablehq observablehq--block"></div>
+<div id="cell-dddd4aa0" class="observablehq observablehq--block"></div>
+<div id="cell-1051e927" class="observablehq observablehq--block"></div>
+<div id="cell-35ba5c53" class="observablehq observablehq--block"></div>
+<div id="cell-fd73cf82" class="observablehq observablehq--block"></div>
+<div id="cell-f7b13ea2" class="observablehq observablehq--block"></div>
+</main>
+<footer id="observablehq-footer">
+<div>Built with Observable Framework.<br>Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div>
+</footer>
+</div>

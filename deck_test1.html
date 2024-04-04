@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Sandbox</title>
+<title>A simple circle | Sandbox</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
 <link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
@@ -10,9 +10,52 @@
 <link rel="modulepreload" href="./_observablehq/client.js">
 <link rel="modulepreload" href="./_observablehq/runtime.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="./_npm/deck.gl@9.0.4/dist.min.js/_esm.js">
+<link rel="modulepreload" href="./_npm/maplibre-gl@4.1.2/_esm.js">
 <script type="module">
 
-import "./_observablehq/client.js";
+import {define} from "./_observablehq/client.js";
+
+define({id: "0f0e6f84", outputs: ["deck","DeckGL","ScatterplotLayer"], body: async () => {
+const {default: deck} = await import("./_npm/deck.gl@9.0.4/dist.min.js/_esm.js");
+;
+const {DeckGL, ScatterplotLayer} = deck;
+return {deck,DeckGL,ScatterplotLayer};
+}});
+
+define({id: "05ea2adc", outputs: ["INITIAL_VIEW_STATE"], body: () => {
+const INITIAL_VIEW_STATE = {
+  latitude: 37.8,
+  longitude: -122.45,
+  zoom: 15
+};
+return {INITIAL_VIEW_STATE};
+}});
+
+define({id: "d7c4e3fc", inputs: ["DeckGL","INITIAL_VIEW_STATE","ScatterplotLayer"], outputs: ["deckInstance"], body: (DeckGL,INITIAL_VIEW_STATE,ScatterplotLayer) => {
+const deckInstance = new DeckGL({
+  debug: true,
+  initialViewState: INITIAL_VIEW_STATE,
+  controller: true,
+  layers: [
+    new ScatterplotLayer({
+      data: [
+        {position: [-122.45, 37.8], color: [255, 0, 0], radius: 200}
+      ],
+      getPosition: d => d.position,
+      getFillColor: d => d.color,
+      getRadius: d => d.radius
+    })
+  ]
+});
+return {deckInstance};
+}});
+
+define({id: "7d181a31", outputs: ["maplibregl"], body: async () => {
+const {default: maplibregl} = await import("./_npm/maplibre-gl@4.1.2/_esm.js");
+
+return {maplibregl};
+}});
 
 </script>
 <input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
@@ -20,7 +63,7 @@ import "./_observablehq/client.js";
 <nav id="observablehq-sidebar">
   <ol>
     <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
-    <li class="observablehq-link observablehq-link-active"><a href="./">Sandbox</a></li>
+    <li class="observablehq-link"><a href="./">Sandbox</a></li>
   </ol>
   <div id="observablehq-search"><input type="search" placeholder="Search"></div>
   <div id="observablehq-search-results"></div>
@@ -38,10 +81,10 @@ import "./_observablehq/client.js";
     <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
       </ol>
     </details>
-    <details open>
+    <details open class="observablehq-section-active">
       <summary>Deckgl</summary>
       <ol>
-    <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./deck_test1">a circle</a></li>
       </ol>
     </details>
     <details open>
@@ -58,9 +101,13 @@ import "./_observablehq/client.js";
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
-<div align="center">In this sandbox, I share tests, things ans stuff I've done with <a href="https://observablehq.com/framework/" target="_BLANK" rel="noopener noreferrer">Observable Framework</a>. This is self-learning process. If things are done in a wrong way, it's because I'm still on my way to learning. If you have any suggestions or comments, don't hesitate to use <a href="https://github.com/neocarto/observable-sandbox/issues" taret="_BLANK" target="_blank" rel="noopener noreferrer">github issues</a></div>
-<br>
-<div align="center">If you prefer, you'll find many other examples in <a href="https://observablehq.com/user/@neocartocnrs" taret="_BLANK" target="_blank" rel="noopener noreferrer">Observable Notbooks</a></div></main>
+<h1 id="a-simple-circle" tabindex="-1"><a class="observablehq-header-anchor" href="#a-simple-circle">A simple circle</a></h1>
+<div id="cell-0f0e6f84" class="observablehq observablehq--block"></div>
+<div id="cell-05ea2adc" class="observablehq observablehq--block"></div>
+<div id="cell-d7c4e3fc" class="observablehq observablehq--block"></div>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css">
+<div id="cell-7d181a31" class="observablehq observablehq--block"></div>
+</main>
 <footer id="observablehq-footer">
 <div>Built with Observable Framework.<br>Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div>
 </footer>
