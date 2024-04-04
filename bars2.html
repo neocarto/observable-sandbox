@@ -22,7 +22,7 @@
 import {define} from "./_observablehq/client.js";
 import {registerFile} from "./_observablehq/stdlib.js";
 
-registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1712243545162});
+registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1712245720181});
 
 define({id: "8d29335d", inputs: ["display","html"], outputs: ["maplibregl","deck","DeckGL","AmbientLight","GeoJsonLayer","HexagonLayer","LightingEffect","PointLight","MapboxOverlay","ScatterplotLayer","ArcLayer"], body: async (display,html) => {
 const [{default: maplibregl}, {default: deck}] = await Promise.all([import("./_npm/maplibre-gl@4.1.2/_esm.js"), import("./_npm/deck.gl@9.0.5/dist.min.js/_esm.js")]);
