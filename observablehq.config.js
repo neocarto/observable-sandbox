@@ -18,12 +18,16 @@ export default {
     },
     {
       name: "Deckgl",
-      pages: [{ name: "a circle", path: "/deck_test1" }],
+      pages: [
+        { name: "a circle", path: "/deck_test1" },
+        { name: "Bars in Paris", path: "/bars" },
+        { name: "Bars in Paris (2)", path: "/bars2" },
+      ],
     },
-    {
-      name: "Examples from others",
-      pages: [{ name: "Deck-gl from Fil", path: "/deckfromfil" }],
-    },
+    // {
+    //   name: "Examples from others",
+    //   pages: [{ name: "Deck-gl from Fil", path: "/deckfromfil" }],
+    // },
   ],
 
   // Some additional configuration options and their defaults:
@@ -31,7 +35,7 @@ export default {
   header:
     "<hr/><div align ='center'><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr/>", // what to show in the header (HTML)
   footer:
-    "Built with Observable Framework.<br/>Code source: <a href = 'https://github.com/neocarto/observable-sandbox'>github.com/neocarto/observable-sandbox</a>", // what to show in the footer (HTML)
+    "<div align = 'center'>Nicolas LAMBERT (CNRS/RIATE)<br/>Built with Observable Framework - Code source: <a href = 'https://github.com/neocarto/observable-sandbox'>github.com/neocarto/observable-sandbox</a></div>", // what to show in the footer (HTML)
   toc: false, // whether to show the table of contents
   pager: false, // whether to show previous & next links in the footer
   //root: "docs", // path to the source root for preview
