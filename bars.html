@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>An example from Fil | Sandbox</title>
+<title>Bars and Pubs in Paris | Sandbox</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
 <link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
@@ -13,13 +13,12 @@
 <link rel="modulepreload" href="./_observablehq/runtime.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.js">
 <link rel="modulepreload" href="./_npm/deck.gl@9.0.4/dist.min.js/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3@7.9.0/_esm.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.14/_esm.js">
-<link rel="modulepreload" href="./_npm/topojson-client@3.1.0/_esm.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/_esm.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/_esm.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-array@3.2.4/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-axis@3.0.0/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-brush@3.0.0/_esm.js">
@@ -29,6 +28,7 @@
 <link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-drag@3.0.0/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-ease@3.0.1/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-force@3.0.0/_esm.js">
@@ -49,23 +49,18 @@
 <link rel="modulepreload" href="./_npm/d3-timer@3.0.1/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-transition@3.0.1/_esm.js">
 <link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/_esm.js">
-<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/_esm.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/_esm.js">
 <link rel="modulepreload" href="./_npm/internmap@2.0.3/_esm.js">
 <link rel="modulepreload" href="./_npm/delaunator@5.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/_esm.js">
 <link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/_esm.js">
 <script type="module">
 
 import {define} from "./_observablehq/client.js";
 import {registerFile} from "./_observablehq/stdlib.js";
 
-registerFile("./data/uk-accidents.csv", {"name":"./data/uk-accidents.csv","mimeType":"text/csv","path":"./_file/data/uk-accidents.459f69e3.csv","lastModified":1712242918203});
-
-define({id: "0b7af5d0", inline: true, inputs: ["d3","data","display"], body: async (d3,data,display) => {
-display(await(
-d3.format(".4s")(data.length)
-))
-}});
+registerFile("./data/arrondissements.json", {"name":"./data/arrondissements.json","mimeType":"application/json","path":"./_file/data/arrondissements.37260444.json","lastModified":1712242886247});
+registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1712242886247});
+registerFile("./data/paris.json", {"name":"./data/paris.json","mimeType":"application/json","path":"./_file/data/paris.3580d27e.json","lastModified":1712242886279});
 
 define({id: "ab721527", inline: true, inputs: ["colorLegend","display"], body: async (colorLegend,display) => {
 display(await(
@@ -73,12 +68,12 @@ colorLegend
 ))
 }});
 
-define({id: "b7f251ce", inputs: ["view","Inputs"], outputs: ["radius","coverage","upperPercentile","replay"], body: (view,Inputs) => {
-const radius = view(Inputs.range([500, 20000], {value: 1000, label: "radius", step: 100}));
+define({id: "aefe2e0f", inputs: ["view","Inputs"], outputs: ["radius","coverage","upperPercentile","elevationScale"], body: (view,Inputs) => {
+const radius = view(Inputs.range([50, 1000], {value: 150, label: "radius", step: 10}));
 const coverage = view(Inputs.range([0, 1], {value: 1, label: "coverage", step: 0.01}));
 const upperPercentile = view(Inputs.range([0, 100], {value: 100, label: "upper percentile", step: 1}));
-const replay = view(Object.assign(Inputs.button("↻"), {style: "position: absolute; right: 14px; width: 2em;"}));
-return {radius,coverage,upperPercentile,replay};
+const elevationScale = view(Inputs.range([0, 20], {value: 0, label: "elevation scale", step: 1}));
+return {radius,coverage,upperPercentile,elevationScale};
 }});
 
 define({id: "271daccf", inputs: ["Plot"], outputs: ["colorRange","colorLegend"], body: (Plot) => {
@@ -106,21 +101,20 @@ const colorLegend = Plot.plot({
 return {colorRange,colorLegend};
 }});
 
-define({id: "aae68c2f", inputs: ["replay","Generators","d3"], outputs: ["transition"], body: (replay,Generators,d3) => {
-const transition =
-  (replay,
-  Generators.queue((notify) => {
-    const duration = 900;
-    const delay = 500;
-    const t = d3.timer((elapsed) => {
-      if (elapsed > duration) t.stop();
-      notify(d3.easeCubicInOut(elapsed / duration));
-    }, delay);
-  }));
-return {transition};
+define({id: "8a7f6fe0", body: () => {
+// const transition =
+//   (replay,
+//   Generators.queue((notify) => {
+//     const duration = 900;
+//     const delay = 500;
+//     const t = d3.timer((elapsed) => {
+//       if (elapsed > duration) t.stop();
+//       notify(d3.easeCubicInOut(elapsed / duration));
+//     }, delay);
+//   }));
 }});
 
-define({id: "3ed06537", inputs: ["container","DeckGL","initialViewState","effects","invalidation"], outputs: ["deckInstance"], body: (container,DeckGL,initialViewState,effects,invalidation) => {
+define({id: "6f85d834", inputs: ["container","DeckGL","initialViewState","effects","invalidation"], outputs: ["deckInstance"], body: (container,DeckGL,initialViewState,effects,invalidation) => {
 container.innerHTML = "";
 const deckInstance = new DeckGL({
   container,
@@ -134,7 +128,7 @@ const deckInstance = new DeckGL({
     return `\
     latitude: ${lat.toFixed(2)}
     longitude: ${lng.toFixed(2)}
-    ${count} accidents
+    ${count} bars and pubs
   `;
   }
 });
@@ -143,29 +137,34 @@ invalidation.then(() => deckInstance.finalize());
 return {deckInstance};
 }});
 
-define({id: "dddd4aa0", inputs: ["deckInstance","GeoJsonLayer","countries","HexagonLayer","colorRange","coverage","data","transition","radius","upperPercentile","material"], body: (deckInstance,GeoJsonLayer,countries,HexagonLayer,colorRange,coverage,data,transition,radius,upperPercentile,material) => {
+define({id: "15db344a", inputs: ["deckInstance","HexagonLayer","colorRange","coverage","data","elevationScale","radius","upperPercentile","material","GeoJsonLayer","arr","paris"], body: (deckInstance,HexagonLayer,colorRange,coverage,data,elevationScale,radius,upperPercentile,material,GeoJsonLayer,arr,paris) => {
 deckInstance.setProps({
   layers: [
-    new GeoJsonLayer({
-      id: "base-map",
-      data: countries,
-      lineWidthMinPixels: 1,
-      getLineColor: [60, 60, 60]
-    }),
     new HexagonLayer({
       id: "heatmap",
       colorRange,
       coverage,
       data,
-      elevationScale: 50,
-      elevationRange: [0, 3000 * transition],
+      elevationScale,
+      //elevationRange: [0, 500 * transition],
       extruded: true,
-      getPosition: (d) => d,
+      getPosition: (d) => [Number(d.lng), Number(d.lat)],
       pickable: true,
       radius,
       upperPercentile,
       material
-    })
+    }),    new GeoJsonLayer({
+      id: "arrondissements",
+      data: arr,
+      lineWidthMinPixels: 1,
+      getLineColor: [255, 255, 255]
+    }),
+     new GeoJsonLayer({
+      id: "Paris",
+      data: paris,
+      lineWidthMinPixels: 2,
+      getLineColor: [255, 255, 255]
+    }),
   ]
 });
 }});
@@ -177,40 +176,29 @@ const {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLi
 return {deck,DeckGL,AmbientLight,GeoJsonLayer,HexagonLayer,LightingEffect,PointLight};
 }});
 
-define({id: "35ba5c53", inputs: ["AmbientLight","PointLight","LightingEffect"], outputs: ["material","ambientLight","pointLight1","pointLight2","effects","initialViewState"], body: (AmbientLight,PointLight,LightingEffect) => {
+define({id: "5ae5699c", inputs: ["AmbientLight","PointLight","LightingEffect"], outputs: ["material","ambientLight","pointLight1","pointLight2","effects","initialViewState"], body: (AmbientLight,PointLight,LightingEffect) => {
 const material = {ambient: 0.64, diffuse: 0.6, shininess: 32, specularColor: [51, 51, 51]};
-
 const ambientLight = new AmbientLight({color: [255, 255, 255], intensity: 1.0});
-
 const pointLight1 = new PointLight({color: [255, 255, 255], intensity: 0.8, position: [-0.144528, 49.739968, 80000]});
-
 const pointLight2 = new PointLight({color: [255, 255, 255], intensity: 0.8, position: [-3.807751, 54.104682, 8000]});
-
 const effects = [new LightingEffect({ambientLight, pointLight1, pointLight2})];
-
 const initialViewState = {
-  longitude: -2,
-  latitude: 53.5,
-  zoom: 5.7,
+  longitude: 2.348,
+  latitude: 48.85,
+  zoom: 12.3,
   minZoom: 5,
   maxZoom: 15,
-  pitch: 40.5,
-  bearing: -5
+  pitch: 50,
+  bearing: 0
 };
 return {material,ambientLight,pointLight1,pointLight2,effects,initialViewState};
 }});
 
-define({id: "fd73cf82", inputs: ["FileAttachment","display"], outputs: ["data"], body: async (FileAttachment,display) => {
-const data = await FileAttachment("./data/uk-accidents.csv").csv({array: true, typed: true});
-display(data)
-return {data};
-}});
-
-define({id: "f7b13ea2", inputs: ["topojson"], outputs: ["topo","world","countries"], body: async (topojson) => {
-const topo = new URL("./_npm/visionscarto-world-atlas@1.0.0/world/50m.json", location).href;
-const world = await fetch(topo).then((response) => response.json());
-const countries = topojson.feature(world, world.objects.countries);
-return {topo,world,countries};
+define({id: "511e55cb", inputs: ["FileAttachment"], outputs: ["data","arr","paris"], body: async (FileAttachment) => {
+const data = await FileAttachment("./data/bars.json").json();
+const arr = await FileAttachment("./data/arrondissements.json").json();
+const paris = await FileAttachment("./data/paris.json").json();
+return {data,arr,paris};
 }});
 
 </script>
@@ -237,11 +225,11 @@ return {topo,world,countries};
     <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
       </ol>
     </details>
-    <details open>
+    <details open class="observablehq-section-active">
       <summary>Deckgl</summary>
       <ol>
     <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
-    <li class="observablehq-link"><a href="./bars">Bars in Paris</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./bars">Bars in Paris</a></li>
     <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
       </ol>
     </details>
@@ -253,27 +241,23 @@ return {topo,world,countries};
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
-<h1 id="an-example-from-fil" tabindex="-1"><a class="observablehq-header-anchor" href="#an-example-from-fil">An example from Fil</a></h1>
-<p>See <a href="https://observablehq.observablehq.cloud/pangea/party/deck.gl-map" target="_blank" rel="noopener noreferrer">https://observablehq.observablehq.cloud/pangea/party/deck.gl-map</a></p>
+<h1 id="bars-and-pubs-in-paris" tabindex="-1"><a class="observablehq-header-anchor" href="#bars-and-pubs-in-paris">Bars and Pubs in Paris</a></h1>
+<p>Adapted from Fil.<br>See: <a href="https://observablehq.observablehq.cloud/pangea/party/deck.gl-map" target="_blank" rel="noopener noreferrer">https://observablehq.observablehq.cloud/pangea/party/deck.gl-map</a></p>
 <div style="width: 100%; position: relative;">
 <div class="card" style="max-width: 270px; position: absolute; top:0; margin-left: 14px; right:14px; z-index:1;">
-<h1 id="uk-road-safety" tabindex="-1"><a class="observablehq-header-anchor" href="#uk-road-safety">UK Road Safety</a></h1>
-<h2 id="personal-injury-road-accidents-from-1979" tabindex="-1"><a class="observablehq-header-anchor" href="#personal-injury-road-accidents-from-1979">Personal injury road accidents from 1979</a></h2>
-<h1 id="accidents" tabindex="-1"><a class="observablehq-header-anchor" href="#accidents"><span id="cell-0b7af5d0" class="observablehq--loading"></span> ACCIDENTS</a></h1>
+<h1 id="bars-and-pubs-in-paris-1" tabindex="-1"><a class="observablehq-header-anchor" href="#bars-and-pubs-in-paris-1">Bars and Pubs in Paris</a></h1>
 <p><span id="cell-ab721527" class="observablehq--loading"></span></p>
-<div style="font-size: small; text-align: right; font-style: italic;"><a href="https://www.data.gov.uk/" target="_blank" rel="noopener noreferrer">data.gov.uk</a></div>
-<div id="cell-b7f251ce" class="observablehq observablehq--block"></div>
+<div id="cell-aefe2e0f" class="observablehq observablehq--block"></div>
 </div>
-<div id="container" style="background: #000; height: 800px; width: 100%;"></div>
+<div id="container" style="height: 800px; width: 100%;"></div>
 </div>
 <div id="cell-271daccf" class="observablehq observablehq--block"></div>
-<div id="cell-aae68c2f" class="observablehq observablehq--block"></div>
-<div id="cell-3ed06537" class="observablehq observablehq--block"></div>
-<div id="cell-dddd4aa0" class="observablehq observablehq--block"></div>
+<div id="cell-8a7f6fe0" class="observablehq observablehq--block"></div>
+<div id="cell-6f85d834" class="observablehq observablehq--block"></div>
+<div id="cell-15db344a" class="observablehq observablehq--block"></div>
 <div id="cell-1051e927" class="observablehq observablehq--block"></div>
-<div id="cell-35ba5c53" class="observablehq observablehq--block"></div>
-<div id="cell-fd73cf82" class="observablehq observablehq--block"></div>
-<div id="cell-f7b13ea2" class="observablehq observablehq--block"></div>
+<div id="cell-5ae5699c" class="observablehq observablehq--block"></div>
+<div id="cell-511e55cb" class="observablehq observablehq--block"></div>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>

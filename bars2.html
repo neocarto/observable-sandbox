@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Bars and Pubs in Paris (2) | Sandbox</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
+<link rel="modulepreload" href="./_observablehq/client.js">
+<link rel="modulepreload" href="./_observablehq/runtime.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="./_npm/maplibre-gl@4.1.2/_esm.js">
+<link rel="modulepreload" href="./_npm/deck.gl@9.0.4/dist.min.js/_esm.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/_esm.js">
+<script type="module">
+
+import {define} from "./_observablehq/client.js";
+import {registerFile} from "./_observablehq/stdlib.js";
+
+registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1712242886247});
+
+define({id: "8d29335d", inputs: ["display","html"], outputs: ["maplibregl","deck","DeckGL","AmbientLight","GeoJsonLayer","HexagonLayer","LightingEffect","PointLight","MapboxOverlay","ScatterplotLayer","ArcLayer"], body: async (display,html) => {
+const [{default: maplibregl}, {default: deck}] = await Promise.all([import("./_npm/maplibre-gl@4.1.2/_esm.js"), import("./_npm/deck.gl@9.0.4/dist.min.js/_esm.js")]);
+// Libraries
+display(html`<link rel="stylesheet" href="${new URL("./_npm/maplibre-gl@4.1.2/dist/maplibre-gl.css", location).href}">`);
+const {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight, MapboxOverlay, ScatterplotLayer, ArcLayer} = deck;
+return {maplibregl,deck,DeckGL,AmbientLight,GeoJsonLayer,HexagonLayer,LightingEffect,PointLight,MapboxOverlay,ScatterplotLayer,ArcLayer};
+}});
+
+define({id: "4b914265", inputs: ["view","Inputs"], outputs: ["radius","coverage","upperPercentile","elevationScale"], body: (view,Inputs) => {
+const radius = view(Inputs.range([50, 1000], {value: 100, label: "radius", step: 100}));
+const coverage = view(Inputs.range([0, 1], {value: 1, label: "coverage", step: 0.01}));
+const upperPercentile = view(Inputs.range([0, 100], {value: 100, label: "upper percentile", step: 1}));
+const elevationScale = view(Inputs.range([0, 20], {value: 3, label: "elevation scale", step: 1}));
+return {radius,coverage,upperPercentile,elevationScale};
+}});
+
+define({id: "785d4241", inputs: ["maplibregl","container"], outputs: ["map"], body: (maplibregl,container) => {
+    const map = new maplibregl.Map({
+      container,
+      style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+      center: [2.348,48.845],
+      zoom: 12,
+      pitch: 50,
+      antialias: true
+    });
+return {map};
+}});
+
+define({id: "f899635f", body: () => {
+     // const firstLabelLayerId = map.getStyle().layers.find(layer => layer.type === 'symbol').id;
+}});
+
+define({id: "2a49d6dc", inputs: ["MapboxOverlay"], outputs: ["deckOverlay"], body: (MapboxOverlay) => {
+const deckOverlay = new MapboxOverlay({
+        interleaved: true,
+      });
+
+return {deckOverlay};
+}});
+
+define({id: "48297903", inputs: ["map","deckOverlay","maplibregl"], body: (map,deckOverlay,maplibregl) => {
+map.addControl(deckOverlay);
+map.addControl(
+  new maplibregl.NavigationControl({
+    visualizePitch: true,
+    showZoom: true,
+    showCompass: true
+  })
+);
+}});
+
+define({id: "c0448c93", outputs: ["colorRange"], body: () => {
+const colorRange = [
+  [1, 152, 189],
+  [73, 227, 206],
+  [216, 254, 181],
+  [254, 237, 177],
+  [254, 173, 84],
+  [209, 55, 78]
+];
+
+return {colorRange};
+}});
+
+define({id: "c7ae2438", inputs: ["deckOverlay","HexagonLayer","colorRange","coverage","data","elevationScale","radius","upperPercentile","material"], body: (deckOverlay,HexagonLayer,colorRange,coverage,data,elevationScale,radius,upperPercentile,material) => {
+deckOverlay.setProps({
+  layers: [
+    new HexagonLayer({
+      id: "heatmap",
+      colorRange,
+      coverage,
+      data,
+      elevationScale,
+      extruded: true,
+      getPosition: (d) => [Number(d.lng), Number(d.lat)],
+      pickable: true,
+      radius,
+      upperPercentile,
+      material,
+                 beforeId: "watername_lake_line"
+    })
+  ]
+});
+
+}});
+
+define({id: "c4fe0db9", inputs: ["AmbientLight","PointLight","LightingEffect"], outputs: ["material","ambientLight","pointLight1","pointLight2","effects"], body: (AmbientLight,PointLight,LightingEffect) => {
+const material = {ambient: 0.64, diffuse: 0.6, shininess: 32, specularColor: [51, 51, 51]};
+const ambientLight = new AmbientLight({color: [255, 255, 255], intensity: 1.0});
+const pointLight1 = new PointLight({color: [255, 255, 255], intensity: 0.8, position: [-0.144528, 49.739968, 80000]});
+const pointLight2 = new PointLight({color: [255, 255, 255], intensity: 0.8, position: [-3.807751, 54.104682, 8000]});
+const effects = [new LightingEffect({ambientLight, pointLight1, pointLight2})];
+return {material,ambientLight,pointLight1,pointLight2,effects};
+}});
+
+define({id: "cfa1c226", inputs: ["FileAttachment"], outputs: ["data"], body: async (FileAttachment) => {
+// Data Import
+const data = await FileAttachment("./data/bars.json").json();
+return {data};
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">Sandbox</a></li>
+  </ol>
+  <div id="observablehq-search"><input type="search" placeholder="Search"></div>
+  <div id="observablehq-search-results"></div>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const a=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(a.classList.add("observablehq-sidebar-open"),t.focus(),t.select(),e.preventDefault())}),t.addEventListener("blur",()=>a.classList.remove("observablehq-sidebar-open"));}</script>
+  <ol>
+    <details open>
+      <summary>Geoviz</summary>
+      <ol>
+    <li class="observablehq-link"><a href="./geoviz_globe">Globe</a></li>
+      </ol>
+    </details>
+    <details open>
+      <summary>Maplibre</summary>
+      <ol>
+    <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
+      </ol>
+    </details>
+    <details open class="observablehq-section-active">
+      <summary>Deckgl</summary>
+      <ol>
+    <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
+    <li class="observablehq-link"><a href="./bars">Bars in Paris</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./bars2">Bars in Paris (2)</a></li>
+      </ol>
+    </details>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<header id="observablehq-header">
+<hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
+</header>
+<main id="observablehq-main" class="observablehq">
+<h1 id="bars-and-pubs-in-paris-(2)" tabindex="-1"><a class="observablehq-header-anchor" href="#bars-and-pubs-in-paris-(2)">Bars and Pubs in Paris (2)</a></h1>
+<div id="cell-8d29335d" class="observablehq observablehq--block"></div>
+<div id="cell-4b914265" class="observablehq observablehq--block"></div>
+<div id="container" style="background: #000; height: 500px; width: 100%;"></div>
+
+<div id="cell-785d4241" class="observablehq observablehq--block"></div>
+<div id="cell-f899635f" class="observablehq observablehq--block"></div>
+<div id="cell-2a49d6dc" class="observablehq observablehq--block"></div>
+<div id="cell-48297903" class="observablehq observablehq--block"></div>
+<div id="cell-c0448c93" class="observablehq observablehq--block"></div>
+<div id="cell-c7ae2438" class="observablehq observablehq--block"></div>
+<div id="cell-c4fe0db9" class="observablehq observablehq--block"></div>
+<div id="cell-cfa1c226" class="observablehq observablehq--block"></div>
+<p>See also <a href="https://observablehq.observablehq.cloud/pangea/party/deck.gl-map" target="_blank" rel="noopener noreferrer">https://observablehq.observablehq.cloud/pangea/party/deck.gl-map</a>, <a href="https://deck.gl/gallery/maplibre-overlay" target="_blank" rel="noopener noreferrer">https://deck.gl/gallery/maplibre-overlay</a> &amp; <a href="https://observablehq.com/@neocartocnrs/eurostat-census-grid-2021" target="_blank" rel="noopener noreferrer">https://observablehq.com/@neocartocnrs/eurostat-census-grid-2021</a></p>
+</main>
+<footer id="observablehq-footer">
+<div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>
+</footer>
+</div>
