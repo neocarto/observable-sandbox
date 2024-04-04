@@ -43,7 +43,7 @@ export default {
     "Built with Observable Framework.<br/>Code source: <a href = 'https://github.com/neocarto/observable-sandbox'>github.com/neocarto/observable-sandbox</a>", // what to show in the footer (HTML)
   // toc: true, // whether to show the table of contents
   pager: false, // whether to show previous & next links in the footer
-  root: "src", // path to the source root for preview
-  output: "docs", // path to the output root for build
+  //root: "docs", // path to the source root for preview
+  //output: "dist", // path to the output root for build
   search: true, // activate search
 };
