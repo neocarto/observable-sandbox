@@ -24,6 +24,10 @@ export default {
         { name: "Bars in Paris (2)", path: "/bars2" },
       ],
     },
+    {
+      name: "webR",
+      pages: [{ name: "test webR", path: "/webR" }],
+    },
     // {
     //   name: "Examples from others",
     //   pages: [{ name: "Deck-gl from Fil", path: "/deckfromfil" }],
