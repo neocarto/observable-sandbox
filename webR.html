@@ -1,60 +1,42 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>A simple circle | Sandbox</title>
+<title>Sandbox</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
 <link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
 <link rel="modulepreload" href="./_observablehq/client.js">
 <link rel="modulepreload" href="./_observablehq/runtime.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.js">
-<link rel="modulepreload" href="./_npm/deck.gl@9.0.14/dist.min.js/_esm.js">
-<link rel="modulepreload" href="./_npm/maplibre-gl@4.3.1/_esm.js">
+<link rel="modulepreload" href="./_npm/webr@0.3.3/_esm.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/_esm.js">
 <script type="module">
 
 import {define} from "./_observablehq/client.js";
 
-define({id: "0f0e6f84", outputs: ["deck","DeckGL","ScatterplotLayer"], body: async () => {
-const {default: deck} = await import("./_npm/deck.gl@9.0.14/dist.min.js/_esm.js");
-;
-const {DeckGL, ScatterplotLayer} = deck;
-return {deck,DeckGL,ScatterplotLayer};
+define({id: "94893b56", outputs: ["WebR","webR"], body: async () => {
+const {WebR} = await import("./_npm/webr@0.3.3/_esm.js");
+const webR = new WebR();
+await webR.init();
+return {WebR,webR};
 }});
 
-define({id: "05ea2adc", outputs: ["INITIAL_VIEW_STATE"], body: () => {
-const INITIAL_VIEW_STATE = {
-  latitude: 37.8,
-  longitude: -122.45,
-  zoom: 15
-};
-return {INITIAL_VIEW_STATE};
+define({id: "9e483143", inputs: ["view","Inputs"], outputs: ["nb"], body: (view,Inputs) => {
+const nb = view(Inputs.range([10, 100], {value: 100, label: "nb", step: 1}));
+return {nb};
 }});
 
-define({id: "d7c4e3fc", inputs: ["DeckGL","INITIAL_VIEW_STATE","ScatterplotLayer"], outputs: ["deckInstance"], body: (DeckGL,INITIAL_VIEW_STATE,ScatterplotLayer) => {
-const deckInstance = new DeckGL({
-  debug: true,
-  initialViewState: INITIAL_VIEW_STATE,
-  controller: true,
-  layers: [
-    new ScatterplotLayer({
-      data: [
-        {position: [-122.45, 37.8], color: [255, 0, 0], radius: 200}
-      ],
-      getPosition: d => d.position,
-      getFillColor: d => d.color,
-      getRadius: d => d.radius
-    })
-  ]
-});
-return {deckInstance};
-}});
-
-define({id: "7d181a31", outputs: ["maplibregl"], body: async () => {
-const {default: maplibregl} = await import("./_npm/maplibre-gl@4.3.1/_esm.js");
-
-return {maplibregl};
+define({id: "6c69a803", inputs: ["webR","nb","display"], outputs: ["result","output"], body: async (webR,nb,display) => {
+let result = await webR.evalR(`rnorm(${nb},5,1)`);
+let output = await result.toArray();
+display(output)
+return {result,output};
 }});
 
 </script>
@@ -81,18 +63,18 @@ return {maplibregl};
     <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
       </ol>
     </details>
-    <details open class="observablehq-section-active">
+    <details open>
       <summary>Deckgl</summary>
       <ol>
-    <li class="observablehq-link observablehq-link-active"><a href="./deck_test1">a circle</a></li>
+    <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
     <li class="observablehq-link"><a href="./bars">Bars in Paris</a></li>
     <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
       </ol>
     </details>
-    <details open>
+    <details open class="observablehq-section-active">
       <summary>webR</summary>
       <ol>
-    <li class="observablehq-link"><a href="./webR">test webR</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./webR">test webR</a></li>
       </ol>
     </details>
   </ol>
@@ -103,12 +85,10 @@ return {maplibregl};
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
-<h1 id="a-simple-circle" tabindex="-1"><a class="observablehq-header-anchor" href="#a-simple-circle">A simple circle</a></h1>
-<div id="cell-0f0e6f84" class="observablehq observablehq--block"></div>
-<div id="cell-05ea2adc" class="observablehq observablehq--block"></div>
-<div id="cell-d7c4e3fc" class="observablehq observablehq--block"></div>
-<link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css">
-<div id="cell-7d181a31" class="observablehq observablehq--block"></div>
+<div id="cell-94893b56" class="observablehq observablehq--block"></div>
+<h2 id="rnorm()" tabindex="-1"><a class="observablehq-header-anchor" href="#rnorm()">rnorm()</a></h2>
+<div id="cell-9e483143" class="observablehq observablehq--block"></div>
+<div id="cell-6c69a803" class="observablehq observablehq--block"></div>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>

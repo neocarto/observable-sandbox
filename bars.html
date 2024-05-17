@@ -12,7 +12,7 @@
 <link rel="modulepreload" href="./_observablehq/client.js">
 <link rel="modulepreload" href="./_observablehq/runtime.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.js">
-<link rel="modulepreload" href="./_npm/deck.gl@9.0.5/dist.min.js/_esm.js">
+<link rel="modulepreload" href="./_npm/deck.gl@9.0.14/dist.min.js/_esm.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.14/_esm.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
@@ -58,9 +58,9 @@
 import {define} from "./_observablehq/client.js";
 import {registerFile} from "./_observablehq/stdlib.js";
 
-registerFile("./data/arrondissements.json", {"name":"./data/arrondissements.json","mimeType":"application/json","path":"./_file/data/arrondissements.37260444.json","lastModified":1712245720177});
-registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1712245720181});
-registerFile("./data/paris.json", {"name":"./data/paris.json","mimeType":"application/json","path":"./_file/data/paris.3580d27e.json","lastModified":1712245720213});
+registerFile("./data/arrondissements.json", {"name":"./data/arrondissements.json","mimeType":"application/json","path":"./_file/data/arrondissements.37260444.json","lastModified":1715959686451});
+registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1715959686451});
+registerFile("./data/paris.json", {"name":"./data/paris.json","mimeType":"application/json","path":"./_file/data/paris.3580d27e.json","lastModified":1715959686483});
 
 define({id: "ab721527", inline: true, inputs: ["colorLegend","display"], body: async (colorLegend,display) => {
 display(await(
@@ -170,7 +170,7 @@ deckInstance.setProps({
 }});
 
 define({id: "1051e927", outputs: ["deck","DeckGL","AmbientLight","GeoJsonLayer","HexagonLayer","LightingEffect","PointLight"], body: async () => {
-const {default: deck} = await import("./_npm/deck.gl@9.0.5/dist.min.js/_esm.js");
+const {default: deck} = await import("./_npm/deck.gl@9.0.14/dist.min.js/_esm.js");
 // import {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight} from "npm:deck.gl"; doesn't work
 const {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight} = deck;
 return {deck,DeckGL,AmbientLight,GeoJsonLayer,HexagonLayer,LightingEffect,PointLight};
@@ -231,6 +231,12 @@ return {data,arr,paris};
     <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
     <li class="observablehq-link observablehq-link-active"><a href="./bars">Bars in Paris</a></li>
     <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
+      </ol>
+    </details>
+    <details open>
+      <summary>webR</summary>
+      <ol>
+    <li class="observablehq-link"><a href="./webR">test webR</a></li>
       </ol>
     </details>
   </ol>

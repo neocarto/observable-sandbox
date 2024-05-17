@@ -10,7 +10,7 @@
 <link rel="modulepreload" href="./_observablehq/client.js">
 <link rel="modulepreload" href="./_observablehq/runtime.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.js">
-<link rel="modulepreload" href="./_npm/maplibre-gl@4.1.2/_esm.js">
+<link rel="modulepreload" href="./_npm/maplibre-gl@4.3.1/_esm.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
 <script type="module">
 
@@ -18,13 +18,13 @@ import {define} from "./_observablehq/client.js";
 
 define({id: "73a3a999", inline: true, inputs: ["display"], body: async (display) => {
 display(await(
-new URL("./_npm/maplibre-gl@4.1.2/dist/maplibre-gl.css", location).href
+new URL("./_npm/maplibre-gl@4.3.1/dist/maplibre-gl.css", location).href
 ))
 }});
 
 define({id: "0b9fcb3e", inputs: ["display","html"], outputs: ["maplibregl"], body: async (display,html) => {
-const {default: maplibregl} = await import("./_npm/maplibre-gl@4.1.2/_esm.js");
-display(html`<link rel="stylesheet" href="${new URL("./_npm/maplibre-gl@4.1.2/dist/maplibre-gl.css", location).href}">`);
+const {default: maplibregl} = await import("./_npm/maplibre-gl@4.3.1/_esm.js");
+display(html`<link rel="stylesheet" href="${new URL("./_npm/maplibre-gl@4.3.1/dist/maplibre-gl.css", location).href}">`);
 
 return {maplibregl};
 }});
@@ -99,6 +99,12 @@ return {map};
     <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
     <li class="observablehq-link"><a href="./bars">Bars in Paris</a></li>
     <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
+      </ol>
+    </details>
+    <details open>
+      <summary>webR</summary>
+      <ol>
+    <li class="observablehq-link"><a href="./webR">test webR</a></li>
       </ol>
     </details>
   </ol>
