@@ -4,6 +4,8 @@ const webR = new WebR();
 await webR.init();
 ```
 
+# Test some things with webR
+
 ## rnorm() 
 
 ```js
