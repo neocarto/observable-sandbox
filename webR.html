@@ -13,12 +13,16 @@
 <link rel="modulepreload" href="./_observablehq/runtime.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.js">
 <link rel="modulepreload" href="./_npm/webr@0.3.3/_esm.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/_esm.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/_esm.js">
 <script type="module">
 
 import {define} from "./_observablehq/client.js";
+import {registerFile} from "./_observablehq/stdlib.js";
+
+registerFile("./data/worlddata.csv", {"name":"./data/worlddata.csv","mimeType":"text/csv","path":"./_file/data/worlddata.56b6caf7.csv","lastModified":1715962838334});
 
 define({id: "94893b56", outputs: ["WebR","webR"], body: async () => {
 const {WebR} = await import("./_npm/webr@0.3.3/_esm.js");
@@ -37,6 +41,61 @@ let result = await webR.evalR(`rnorm(${nb},5,1)`);
 let output = await result.toArray();
 display(output)
 return {result,output};
+}});
+
+define({id: "870f9673", inputs: ["webR","nb","display"], outputs: ["shelter","result2"], body: async (webR,nb,display) => {
+let shelter = await new webR.Shelter();
+let result2 = await shelter.captureR(`print(rnorm(${nb},5,1))`);
+display(result2.output);
+
+shelter.purge();
+return {shelter,result2};
+}});
+
+define({id: "143f66e3", inputs: ["webR"], outputs: ["sort"], body: (webR) => {
+let sort = webR.evalR("sort")
+return {sort};
+}});
+
+define({id: "8798acf8", inputs: ["sort","output","display"], outputs: ["sorted"], body: async (sort,output,display) => {
+let sorted = await sort(output)
+display(sorted.values)
+return {sorted};
+}});
+
+define({id: "23eeff21", inputs: ["webR"], outputs: ["multi2"], body: (webR) => {
+async function multi2(arr) {
+  const fn = await webR.evalR("function(x) { 2 * x }");
+  const result3 = await fn.exec(arr);
+  return result3.toArray();
+}
+return {multi2};
+}});
+
+define({id: "1f6c1450", inputs: ["display","multi2"], body: async (display,multi2) => {
+display(await multi2([1, 2, 3]))
+}});
+
+define({id: "1023b1a4", inputs: ["view","Inputs"], outputs: ["myvar"], body: (view,Inputs) => {
+let myvar = view(Inputs.select(["pop", "gdp", "gdppc", "region"]))
+return {myvar};
+}});
+
+define({id: "7583faaa", inputs: ["FileAttachment","myvar"], outputs: ["data","mydata"], body: async (FileAttachment,myvar) => {
+let data = await FileAttachment("./data/worlddata.csv").csv({ typed: true })
+let mydata = data.map(d => d[myvar])
+return {data,mydata};
+}});
+
+define({id: "b001a9eb", inputs: ["webR","mydata","display"], body: async (webR,mydata,display) => {
+{
+
+  await webR.objs.globalEnv.bind("arr", mydata);
+  let shelter = await new webR.Shelter();
+  let rcode = `summary(arr)`;
+  let { output } = await shelter.captureR(rcode, { withAutoprint: true });
+  display(output.map((line) => line.data).join("\n"))
+}
 }});
 
 </script>
@@ -89,6 +148,17 @@ return {result,output};
 <h2 id="rnorm()" tabindex="-1"><a class="observablehq-header-anchor" href="#rnorm()">rnorm()</a></h2>
 <div id="cell-9e483143" class="observablehq observablehq--block"></div>
 <div id="cell-6c69a803" class="observablehq observablehq--block"></div>
+<div id="cell-870f9673" class="observablehq observablehq--block"></div>
+<h2 id="r-sort()-function" tabindex="-1"><a class="observablehq-header-anchor" href="#r-sort()-function">R sort() function</a></h2>
+<div id="cell-143f66e3" class="observablehq observablehq--block"></div>
+<div id="cell-8798acf8" class="observablehq observablehq--block"></div>
+<h2 id="test-r-function-on-array-of-values-in-js" tabindex="-1"><a class="observablehq-header-anchor" href="#test-r-function-on-array-of-values-in-js">Test R function on array of values in js</a></h2>
+<div id="cell-23eeff21" class="observablehq observablehq--block"></div>
+<div id="cell-1f6c1450" class="observablehq observablehq--block observablehq--loading"></div>
+<h2 id="summary-of-a-js-data-with-r" tabindex="-1"><a class="observablehq-header-anchor" href="#summary-of-a-js-data-with-r">Summary of a js data with R</a></h2>
+<div id="cell-1023b1a4" class="observablehq observablehq--block"></div>
+<div id="cell-7583faaa" class="observablehq observablehq--block"></div>
+<div id="cell-b001a9eb" class="observablehq observablehq--block"></div>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>
