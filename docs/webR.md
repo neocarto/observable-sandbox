@@ -60,7 +60,8 @@ let myvar = view(Inputs.select(["pop", "gdp", "gdppc", "region"]))
 
 ```js
 let data = await FileAttachment("data/worlddata.csv").csv({ typed: true })
-let mydata = data.map(d => d[myvar])
+let mydata = data.map(d => +d[myvar])
+display(mydata)
 ```
 
 ```js
@@ -73,3 +74,51 @@ let mydata = data.map(d => d[myvar])
   display(output.map((line) => line.data).join("\n"))
 }
 ```
+
+# Packages classInt
+
+```js
+await webR.installPackages(['classInt'])
+await webR.evalRVoid("library(classInt)");
+```
+
+```js
+let method = view(Inputs.select(["sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails"]
+))
+```
+
+```js
+const n = view(Inputs.range([2, 10], {value: 5, label: "n", step: 1}));
+```
+
+
+
+```js
+{
+
+  await webR.objs.globalEnv.bind("arr", mydata);
+  // let shelter = await new webR.Shelter();
+
+
+  //let rcode = `summary(arr)`;
+  let rcode = `classIntervals(arr, n=${n}, style = "${method}")`;
+  let { output } = await shelter.captureR(rcode, { withAutoprint: true });
+  display(output.map((line) => line.data).join("\n"))
+}
+```
+
+
+```js
+async function getbreaks(nb, method) {
+  const fn = await webR.evalR("function(method, n) {classIntervals(arr, n=n, style = method)}");
+  const result4 = await fn.exec(nb, method);
+  return result4.toArray();
+}
+```
+
+```js
+display(await getbreaks(method, n))
+```
+
+
+https://repo.r-wasm.org/
