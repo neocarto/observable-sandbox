@@ -22,7 +22,7 @@
 import {define} from "./_observablehq/client.js";
 import {registerFile} from "./_observablehq/stdlib.js";
 
-registerFile("./data/worlddata.csv", {"name":"./data/worlddata.csv","mimeType":"text/csv","path":"./_file/data/worlddata.56b6caf7.csv","lastModified":1715962923178});
+registerFile("./data/worlddata.csv", {"name":"./data/worlddata.csv","mimeType":"text/csv","path":"./_file/data/worlddata.56b6caf7.csv","lastModified":1716028863403});
 
 define({id: "94893b56", outputs: ["WebR","webR"], body: async () => {
 const {WebR} = await import("./_npm/webr@0.3.3/_esm.js");
@@ -81,9 +81,10 @@ let myvar = view(Inputs.select(["pop", "gdp", "gdppc", "region"]))
 return {myvar};
 }});
 
-define({id: "7583faaa", inputs: ["FileAttachment","myvar"], outputs: ["data","mydata"], body: async (FileAttachment,myvar) => {
+define({id: "138bee9e", inputs: ["FileAttachment","myvar","display"], outputs: ["data","mydata"], body: async (FileAttachment,myvar,display) => {
 let data = await FileAttachment("./data/worlddata.csv").csv({ typed: true })
-let mydata = data.map(d => d[myvar])
+let mydata = data.map(d => +d[myvar])
+display(mydata)
 return {data,mydata};
 }});
 
@@ -96,6 +97,49 @@ define({id: "b001a9eb", inputs: ["webR","mydata","display"], body: async (webR,m
   let { output } = await shelter.captureR(rcode, { withAutoprint: true });
   display(output.map((line) => line.data).join("\n"))
 }
+}});
+
+define({id: "e63798a7", inputs: ["webR"], body: async (webR) => {
+await webR.installPackages(['classInt'])
+await webR.evalRVoid("library(classInt)");
+}});
+
+define({id: "f6029fae", inputs: ["view","Inputs"], outputs: ["method"], body: (view,Inputs) => {
+let method = view(Inputs.select(["sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails"]
+))
+return {method};
+}});
+
+define({id: "df889aa9", inputs: ["view","Inputs"], outputs: ["n"], body: (view,Inputs) => {
+const n = view(Inputs.range([2, 10], {value: 5, label: "n", step: 1}));
+return {n};
+}});
+
+define({id: "5b02428a", inputs: ["webR","mydata","n","method","shelter","display"], body: async (webR,mydata,n,method,shelter,display) => {
+{
+
+  await webR.objs.globalEnv.bind("arr", mydata);
+  // let shelter = await new webR.Shelter();
+
+
+  //let rcode = `summary(arr)`;
+  let rcode = `classIntervals(arr, n=${n}, style = "${method}")`;
+  let { output } = await shelter.captureR(rcode, { withAutoprint: true });
+  display(output.map((line) => line.data).join("\n"))
+}
+}});
+
+define({id: "707399dd", inputs: ["webR"], outputs: ["getbreaks"], body: (webR) => {
+async function getbreaks(nb, method) {
+  const fn = await webR.evalR("function(method, n) {classIntervals(arr, n=n, style = method)}");
+  const result4 = await fn.exec(nb, method);
+  return result4.toArray();
+}
+return {getbreaks};
+}});
+
+define({id: "cbb332e6", inputs: ["display","getbreaks","method","n"], body: async (display,getbreaks,method,n) => {
+display(await getbreaks(method, n))
 }});
 
 </script>
@@ -158,8 +202,16 @@ define({id: "b001a9eb", inputs: ["webR","mydata","display"], body: async (webR,m
 <div id="cell-1f6c1450" class="observablehq observablehq--block observablehq--loading"></div>
 <h2 id="summary-of-a-js-data-with-r" tabindex="-1"><a class="observablehq-header-anchor" href="#summary-of-a-js-data-with-r">Summary of a js data with R</a></h2>
 <div id="cell-1023b1a4" class="observablehq observablehq--block"></div>
-<div id="cell-7583faaa" class="observablehq observablehq--block"></div>
+<div id="cell-138bee9e" class="observablehq observablehq--block"></div>
 <div id="cell-b001a9eb" class="observablehq observablehq--block"></div>
+<h1 id="packages-classint" tabindex="-1"><a class="observablehq-header-anchor" href="#packages-classint">Packages classInt</a></h1>
+<div id="cell-e63798a7" class="observablehq observablehq--block"></div>
+<div id="cell-f6029fae" class="observablehq observablehq--block"></div>
+<div id="cell-df889aa9" class="observablehq observablehq--block"></div>
+<div id="cell-5b02428a" class="observablehq observablehq--block"></div>
+<div id="cell-707399dd" class="observablehq observablehq--block"></div>
+<div id="cell-cbb332e6" class="observablehq observablehq--block observablehq--loading"></div>
+<p><a href="https://repo.r-wasm.org/" target="_blank" rel="noopener noreferrer">https://repo.r-wasm.org/</a></p>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>
