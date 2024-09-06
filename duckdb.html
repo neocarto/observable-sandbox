@@ -6,15 +6,117 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
-<link rel="modulepreload" href="./_observablehq/client.d8d98a61.js">
-<link rel="modulepreload" href="./_observablehq/runtime.62b61640.js">
-<link rel="modulepreload" href="./_observablehq/stdlib.10504731.js">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="modulepreload" href="./_observablehq/client.418381df.js">
+<link rel="modulepreload" href="./_observablehq/runtime.5f0e99b2.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.ecd269e5.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/407f7a1f.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/duckdb.95295d2b.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.989d304e.js">
+<link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.28.0/6d3961a7.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
+<link rel="modulepreload" href="./_npm/apache-arrow@17.0.0/169cdc0a.js">
+<link rel="modulepreload" href="./_npm/tslib@2.7.0/f0f7d58c.js">
+<link rel="modulepreload" href="./_npm/flatbuffers@24.3.25/fd24637b.js">
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
-import "./_observablehq/client.d8d98a61.js";
+import {define} from "./_observablehq/client.418381df.js";
+import {registerFile, FileAttachment} from "./_observablehq/stdlib.ecd269e5.js";
+import {registerTable} from "./_observablehq/stdlib/duckdb.95295d2b.js";
+
+registerFile("./data/worlddata.csv", {"name":"./data/worlddata.csv","mimeType":"text/csv","path":"./_file/data/worlddata.56b6caf7.csv","lastModified":1725636027447,"size":15954});
+registerTable("data", FileAttachment("./data/worlddata.csv"));
+registerTable("quakes", "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.csv");
+
+define({id: "ce5fe5f1", inputs: ["sql"], outputs: ["all"], body: async (sql) => {
+const all = await sql`SELECT *  FROM data ORDER BY pop LIMIT 10`;
+return {all};
+}});
+
+define({id: "6d6515fd", inputs: ["all","display"], body: async (all,display) => {
+display(await(
+all.toArray()
+))
+}});
+
+define({id: "5d9f358c", inputs: ["display","Inputs","sql"], outputs: ["top10"], body: async (display,Inputs,sql) => {
+const top10 = ((_) => (display(Inputs.table(_)), _))(await sql`SELECT * FROM data ORDER BY pop LIMIT 10`);
+return {top10};
+}});
+
+define({id: "6db56f85", inputs: ["sql"], outputs: ["top"], body: async (sql) => {
+const [top] = await sql`SELECT * FROM data ORDER BY pop LIMIT 10`;
+return {top};
+}});
+
+define({id: "f7de2947", inputs: ["top","display"], body: async (top,display) => {
+display(await(
+top
+))
+}});
+
+define({id: "b36f1e58", inputs: ["sql"], outputs: ["min"], body: async (sql) => {
+const [{min}] = await sql`SELECT MIN(pop) AS min FROM data`;
+return {min};
+}});
+
+define({id: "4e27c403", inputs: ["min","display"], body: async (min,display) => {
+display(await(
+min
+))
+}});
+
+define({id: "5df6ef61", inputs: ["view","Inputs"], outputs: ["limit"], body: (view,Inputs) => {
+const limit = view(Inputs.range([2, 20], {label: "Limit", value:2, step:1}));
+return {limit};
+}});
+
+define({id: "a9753442", inputs: ["display","Inputs","sql","limit"], outputs: ["top10"], body: async (display,Inputs,sql,limit) => {
+const top10 = ((_) => (display(Inputs.table(_)), _))(await sql`SELECT * FROM data ORDER BY ISO3 LIMIT ${limit}`);
+return {top10};
+}});
+
+define({id: "b6a4e71e", inputs: ["sql","display"], outputs: ["row"], body: async (sql,display) => {
+const [row] = await sql`SELECT random() as random`;
+display(row.random)
+return {row};
+}});
+
+define({id: "d4f62c72", inputs: ["Inputs","sql","display"], body: async (Inputs,sql,display) => {
+display(await(
+Inputs.table(await sql([`SELECT * FROM data`]))
+))
+}});
+
+define({id: "42dd339d", inputs: ["sql"], outputs: ["total_rows"], body: async (sql) => {
+const [{total_rows}] = await sql`SELECT count(*) AS total_rows from data`;
+return {total_rows};
+}});
+
+define({id: "33c1f65c", inputs: ["total_rows","display"], body: async (total_rows,display) => {
+display(await(
+total_rows
+))
+}});
+
+define({id: "7e41a859", inputs: ["DuckDBClient","FileAttachment"], outputs: ["db2"], body: async (DuckDBClient,FileAttachment) => {
+const db2 = await DuckDBClient.of({base: FileAttachment("./data/worlddata.csv")});
+return {db2};
+}});
+
+define({id: "b1029898", inputs: ["db2"], outputs: ["x"], body: (db2) => {
+const x = db2.queryRow(`SELECT * FROM base`)
+return {x};
+}});
+
+define({id: "4c0101bd", inputs: ["display","x"], body: (display,x) => {
+display(x)
+}});
 
 </script>
 <input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
@@ -26,7 +128,7 @@ import "./_observablehq/client.d8d98a61.js";
   </ol>
   <div id="observablehq-search"><input type="search" placeholder="Search"></div>
   <div id="observablehq-search-results"></div>
-  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.0e466967.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c8cdfdca.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
   <section>
     <summary>Geoviz</summary>
     <ol>
@@ -53,6 +155,13 @@ import "./_observablehq/client.d8d98a61.js";
     <li class="observablehq-link"><a href="./webR">test webR</a></li>
     </ol>
   </section>
+  <section class="observablehq-section-active">
+    <summary>Sql</summary>
+    <ol>
+    <li class="observablehq-link observablehq-link-active"><a href="./duckdb">test</a></li>
+    <li class="observablehq-link"><a href="./duckdb2">test2</a></li>
+    </ol>
+  </section>
 </nav>
 <script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
 <div id="observablehq-center">
@@ -60,6 +169,30 @@ import "./_observablehq/client.d8d98a61.js";
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
+<h2 id="duckdb-tets" tabindex="-1"><a class="observablehq-header-anchor" href="#duckdb-tets">Duckdb tets</a></h2>
+<div class="observablehq observablehq--block"><!--:ce5fe5f1:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:6d6515fd:--></div>
+<div class="observablehq observablehq--block"><!--:5d9f358c:--></div>
+<div class="observablehq observablehq--block"><!--:6db56f85:--></div>
+<!-- ```js
+display(all)
+``` -->
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:f7de2947:--></div>
+<div class="observablehq observablehq--block"><!--:b36f1e58:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:4e27c403:--></div>
+<div class="observablehq observablehq--block"><!--:5df6ef61:--></div>
+<div class="observablehq observablehq--block"><!--:a9753442:--></div>
+<!-- ```sql
+COPY top10 TO 'output.json';
+``` -->
+<h3 id="sql-literals" tabindex="-1"><a class="observablehq-header-anchor" href="#sql-literals">sql literals</a></h3>
+<div class="observablehq observablehq--block"><!--:b6a4e71e:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:d4f62c72:--></div>
+<div class="observablehq observablehq--block"><!--:42dd339d:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:33c1f65c:--></div>
+<div class="observablehq observablehq--block"><!--:7e41a859:--></div>
+<div class="observablehq observablehq--block"><!--:b1029898:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:4c0101bd:--></div>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>

@@ -10,11 +10,11 @@
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
-<link rel="modulepreload" href="./_observablehq/client.d8d98a61.js">
-<link rel="modulepreload" href="./_observablehq/runtime.62b61640.js">
-<link rel="modulepreload" href="./_observablehq/stdlib.10504731.js">
+<link rel="modulepreload" href="./_observablehq/client.418381df.js">
+<link rel="modulepreload" href="./_observablehq/runtime.5f0e99b2.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.ecd269e5.js">
 <link rel="modulepreload" href="./_npm/deck.gl@9.0.29/dist.min.js.d8da2739.js">
-<link rel="modulepreload" href="./_observablehq/stdlib/inputs.470d1590.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.989d304e.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
@@ -57,12 +57,12 @@
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
-import {define} from "./_observablehq/client.d8d98a61.js";
-import {registerFile} from "./_observablehq/stdlib.10504731.js";
+import {define} from "./_observablehq/client.418381df.js";
+import {registerFile} from "./_observablehq/stdlib.ecd269e5.js";
 
-registerFile("./data/arrondissements.json", {"name":"./data/arrondissements.json","mimeType":"application/json","path":"./_file/data/arrondissements.37260444.json","lastModified":1725625748697,"size":69740});
-registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1725625748697,"size":178000});
-registerFile("./data/paris.json", {"name":"./data/paris.json","mimeType":"application/json","path":"./_file/data/paris.3580d27e.json","lastModified":1725625748729,"size":76674});
+registerFile("./data/arrondissements.json", {"name":"./data/arrondissements.json","mimeType":"application/json","path":"./_file/data/arrondissements.37260444.json","lastModified":1725636027415,"size":69740});
+registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1725636027415,"size":178000});
+registerFile("./data/paris.json", {"name":"./data/paris.json","mimeType":"application/json","path":"./_file/data/paris.3580d27e.json","lastModified":1725636027447,"size":76674});
 
 define({id: "ab721527", mode: "inline", inputs: ["colorLegend","display"], body: async (colorLegend,display) => {
 display(await(
@@ -213,7 +213,7 @@ return {data,arr,paris};
   </ol>
   <div id="observablehq-search"><input type="search" placeholder="Search"></div>
   <div id="observablehq-search-results"></div>
-  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.0e466967.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c8cdfdca.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
   <section>
     <summary>Geoviz</summary>
     <ol>
@@ -238,6 +238,13 @@ return {data,arr,paris};
     <summary>webR</summary>
     <ol>
     <li class="observablehq-link"><a href="./webR">test webR</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>Sql</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./duckdb">test</a></li>
+    <li class="observablehq-link"><a href="./duckdb2">test2</a></li>
     </ol>
   </section>
 </nav>
