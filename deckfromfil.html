@@ -1,73 +1,75 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>An example from Fil | Sandbox</title>
+<meta name="generator" content="Observable Framework v1.11.0">
+<title>An example from Fil | Observable Sandbox</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
-<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
-<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
-<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.css">
-<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
-<link rel="modulepreload" href="./_observablehq/client.js">
-<link rel="modulepreload" href="./_observablehq/runtime.js">
-<link rel="modulepreload" href="./_observablehq/stdlib.js">
-<link rel="modulepreload" href="./_npm/deck.gl@9.0.14/dist.min.js/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3@7.9.0/_esm.js">
-<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
-<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.14/_esm.js">
-<link rel="modulepreload" href="./_npm/topojson-client@3.1.0/_esm.js">
-<link rel="modulepreload" href="./_npm/htl@0.3.1/_esm.js">
-<link rel="modulepreload" href="./_npm/isoformat@0.2.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-array@3.2.4/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-color@3.1.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-force@3.0.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-format@3.1.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-path@3.1.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-random@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-time@3.1.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/_esm.js">
-<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/_esm.js">
-<link rel="modulepreload" href="./_npm/internmap@2.0.3/_esm.js">
-<link rel="modulepreload" href="./_npm/delaunator@5.0.1/_esm.js">
-<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/_esm.js">
-<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/_esm.js">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="modulepreload" href="./_observablehq/client.d8d98a61.js">
+<link rel="modulepreload" href="./_observablehq/runtime.62b61640.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.10504731.js">
+<link rel="modulepreload" href="./_npm/deck.gl@9.0.29/dist.min.js.d8da2739.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/407f7a1f.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/7055d4c5.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.470d1590.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
+<link rel="modulepreload" href="./_npm/topojson-client@3.1.0/44d97fcb.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e95f898e.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/d44feff9.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/5830b12a.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/84d7b8e9.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/2c0cdfa2.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/626bedc4.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/00c41b5d.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/b5f7cdc6.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/b22c5864.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/6f15f633.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/ef1ec490.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e1ff060.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/5851d7ef.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/dcd02767.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/f1db2593.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/034b7bcb.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/4bb53638.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/bbafde58.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/aa5b35a8.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/32c7fec2.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/567840a0.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/cf9b720b.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/5dcd62f4.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/f8e03c56.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/5bc129e1.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/19c92b44.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/f31b5398.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/8debb4ba.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/4b0cc581.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/a62ae5ce.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/5eed35fd.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/e67acb27.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/1ee6c50d.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/8ac9039b.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
-import {define} from "./_observablehq/client.js";
-import {registerFile} from "./_observablehq/stdlib.js";
+import {define} from "./_observablehq/client.d8d98a61.js";
+import {registerFile} from "./_observablehq/stdlib.10504731.js";
 
-registerFile("./data/uk-accidents.csv", {"name":"./data/uk-accidents.csv","mimeType":"text/csv","path":"./_file/data/uk-accidents.459f69e3.csv","lastModified":1716028882195});
+registerFile("./data/uk-accidents.csv", {"name":"./data/uk-accidents.csv","mimeType":"text/csv","path":"./_file/data/uk-accidents.459f69e3.csv","lastModified":1725625010873,"size":2921538});
 
-define({id: "0b7af5d0", inline: true, inputs: ["d3","data","display"], body: async (d3,data,display) => {
+define({id: "0b7af5d0", mode: "inline", inputs: ["d3","data","display"], body: async (d3,data,display) => {
 display(await(
 d3.format(".4s")(data.length)
 ))
 }});
 
-define({id: "ab721527", inline: true, inputs: ["colorLegend","display"], body: async (colorLegend,display) => {
+define({id: "ab721527", mode: "inline", inputs: ["colorLegend","display"], body: async (colorLegend,display) => {
 display(await(
 colorLegend
 ))
@@ -171,7 +173,7 @@ deckInstance.setProps({
 }});
 
 define({id: "1051e927", outputs: ["deck","DeckGL","AmbientLight","GeoJsonLayer","HexagonLayer","LightingEffect","PointLight"], body: async () => {
-const {default: deck} = await import("./_npm/deck.gl@9.0.14/dist.min.js/_esm.js");
+const {default: deck} = await import("./_npm/deck.gl@9.0.29/dist.min.js.d8da2739.js");
 // import {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight} from "npm:deck.gl"; doesn't work
 const {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight} = deck;
 return {deck,DeckGL,AmbientLight,GeoJsonLayer,HexagonLayer,LightingEffect,PointLight};
@@ -219,45 +221,29 @@ return {topo,world,countries};
 <nav id="observablehq-sidebar">
   <ol>
     <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
-    <li class="observablehq-link"><a href="./">Sandbox</a></li>
+    <li class="observablehq-link"><a href="./">Observable Sandbox</a></li>
   </ol>
-  <div id="observablehq-search"><input type="search" placeholder="Search"></div>
-  <div id="observablehq-search-results"></div>
-  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const a=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(a.classList.add("observablehq-sidebar-open"),t.focus(),t.select(),e.preventDefault())}),t.addEventListener("blur",()=>a.classList.remove("observablehq-sidebar-open"));}</script>
   <ol>
-    <details open>
-      <summary>Geoviz</summary>
-      <ol>
-    <li class="observablehq-link"><a href="./geoviz_globe">Globe</a></li>
-      </ol>
-    </details>
-    <details open>
-      <summary>Maplibre</summary>
-      <ol>
-    <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
-      </ol>
-    </details>
-    <details open>
-      <summary>Deckgl</summary>
-      <ol>
-    <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
-    <li class="observablehq-link"><a href="./bars">Bars in Paris</a></li>
-    <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
-      </ol>
-    </details>
-    <details open>
-      <summary>webR</summary>
-      <ol>
-    <li class="observablehq-link"><a href="./webR">test webR</a></li>
-      </ol>
-    </details>
+    <li class="observablehq-link"><a href="./bars">Bars and Pubs in Paris</a></li>
+    <li class="observablehq-link"><a href="./bars2">Bars and Pubs in Paris (2)</a></li>
+    <li class="observablehq-link"><a href="./deck_test1">A simple circle</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./deckfromfil">An example from Fil</a></li>
+    <li class="observablehq-link"><a href="./geoviz_globe">Untitled</a></li>
+    <li class="observablehq-link"><a href="./gridviz">Gridviz</a></li>
+    <li class="observablehq-link"><a href="./maplibre">Untitled</a></li>
+    <li class="observablehq-link"><a href="./webR">Test some things with webR</a></li>
   </ol>
 </nav>
-<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#accidents"> ACCIDENTS</a></li>
+</ol>
+</nav>
+</aside>
 <div id="observablehq-center">
-<header id="observablehq-header">
-<hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
-</header>
 <main id="observablehq-main" class="observablehq">
 <h1 id="an-example-from-fil" tabindex="-1"><a class="observablehq-header-anchor" href="#an-example-from-fil">An example from Fil</a></h1>
 <p>See <a href="https://observablehq.observablehq.cloud/pangea/party/deck.gl-map" target="_blank" rel="noopener noreferrer">https://observablehq.observablehq.cloud/pangea/party/deck.gl-map</a></p>
@@ -265,23 +251,24 @@ return {topo,world,countries};
 <div class="card" style="max-width: 270px; position: absolute; top:0; margin-left: 14px; right:14px; z-index:1;">
 <h1 id="uk-road-safety" tabindex="-1"><a class="observablehq-header-anchor" href="#uk-road-safety">UK Road Safety</a></h1>
 <h2 id="personal-injury-road-accidents-from-1979" tabindex="-1"><a class="observablehq-header-anchor" href="#personal-injury-road-accidents-from-1979">Personal injury road accidents from 1979</a></h2>
-<h1 id="accidents" tabindex="-1"><a class="observablehq-header-anchor" href="#accidents"><span id="cell-0b7af5d0" class="observablehq--loading"></span> ACCIDENTS</a></h1>
-<p><span id="cell-ab721527" class="observablehq--loading"></span></p>
+<h1 id="accidents" tabindex="-1"><a class="observablehq-header-anchor" href="#accidents"><observablehq-loading></observablehq-loading><!--:0b7af5d0:--> ACCIDENTS</a></h1>
+<p><observablehq-loading></observablehq-loading><!--:ab721527:--></p>
 <div style="font-size: small; text-align: right; font-style: italic;"><a href="https://www.data.gov.uk/" target="_blank" rel="noopener noreferrer">data.gov.uk</a></div>
-<div id="cell-b7f251ce" class="observablehq observablehq--block"></div>
+<div class="observablehq observablehq--block"><!--:b7f251ce:--></div>
 </div>
 <div id="container" style="background: #000; height: 800px; width: 100%;"></div>
 </div>
-<div id="cell-271daccf" class="observablehq observablehq--block"></div>
-<div id="cell-aae68c2f" class="observablehq observablehq--block"></div>
-<div id="cell-3ed06537" class="observablehq observablehq--block"></div>
-<div id="cell-dddd4aa0" class="observablehq observablehq--block"></div>
-<div id="cell-1051e927" class="observablehq observablehq--block"></div>
-<div id="cell-35ba5c53" class="observablehq observablehq--block"></div>
-<div id="cell-fd73cf82" class="observablehq observablehq--block"></div>
-<div id="cell-f7b13ea2" class="observablehq observablehq--block"></div>
+<div class="observablehq observablehq--block"><!--:271daccf:--></div>
+<div class="observablehq observablehq--block"><!--:aae68c2f:--></div>
+<div class="observablehq observablehq--block"><!--:3ed06537:--></div>
+<div class="observablehq observablehq--block"><!--:dddd4aa0:--></div>
+<div class="observablehq observablehq--block"><!--:1051e927:--></div>
+<div class="observablehq observablehq--block"><!--:35ba5c53:--></div>
+<div class="observablehq observablehq--block"><!--:fd73cf82:--></div>
+<div class="observablehq observablehq--block"><!--:f7b13ea2:--></div>
 </main>
 <footer id="observablehq-footer">
-<div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>
+<nav><a rel="prev" href="./deck_test1"><span>A simple circle</span></a><a rel="next" href="./geoviz_globe"><span>Untitled</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2024-09-06T12:16:42">Sep 6, 2024</a>.</div>
 </footer>
 </div>
