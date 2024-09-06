@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="generator" content="Observable Framework v1.11.0">
-<title>Gridviz | Observable Sandbox</title>
+<title>Observable Sandbox</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
@@ -14,40 +14,7 @@
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
-import {define} from "./_observablehq/client.d8d98a61.js";
-
-define({id: "341b8381", inputs: ["gridviz","display"], body: async (gridviz,display) => {
-display(await(
-gridviz
-))
-}});
-
-define({id: "d200c07a", inputs: ["gridviz"], outputs: ["map"], body: (gridviz) => {
-//define map with initial view
-    const map = new gridviz.Map(document.getElementById('map'), { x: 3900000, y: 2960000, z: 500, zoomExtent: [100, 1500] })
-        .addZoomButtons()
-
-    // //define dataset
-    // const dataset = new gridviz.CSVGrid(map, "https://raw.githubusercontent.com/eurostat/gridviz/master/assets/csv/Europe/pop_2018_10km.csv", 10000)
-
-    // //define style
-    // const scale = gridviz.powerScale(0.4)
-    // const style = new gridviz.NinjaStarStyle({
-    //     color: () => 'purple',
-    //     size: (c, r, z) => scale(c.population / 300000)
-    // })
-
-    // //add layer to map
-    // map.layers = [new gridviz.GridLayer(dataset, [style])]
-
-return {map};
-}});
-
-define({id: "75aefc3a", body: () => {
-// Data Import
-// const data = await FileAttachment("/data/grid.json").json()
-// display(Inputs.table(data))
-}});
+import "./_observablehq/client.d8d98a61.js";
 
 </script>
 <input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
@@ -93,13 +60,6 @@ define({id: "75aefc3a", body: () => {
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
-<h1 id="gridviz" tabindex="-1"><a class="observablehq-header-anchor" href="#gridviz">Gridviz</a></h1>
-<div class="observablehq observablehq--block">
-  <div class="observablehq--inspect observablehq--error">SyntaxError: Unterminated string constant (2:25)</div>
-</div>
-<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:341b8381:--></div>
-<div class="observablehq observablehq--block"><!--:d200c07a:--></div>
-<div class="observablehq observablehq--block"><!--:75aefc3a:--></div>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>

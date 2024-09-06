@@ -61,7 +61,7 @@
 import {define} from "./_observablehq/client.d8d98a61.js";
 import {registerFile} from "./_observablehq/stdlib.10504731.js";
 
-registerFile("./data/uk-accidents.csv", {"name":"./data/uk-accidents.csv","mimeType":"text/csv","path":"./_file/data/uk-accidents.459f69e3.csv","lastModified":1725625010873,"size":2921538});
+registerFile("./data/uk-accidents.csv", {"name":"./data/uk-accidents.csv","mimeType":"text/csv","path":"./_file/data/uk-accidents.459f69e3.csv","lastModified":1725625763169,"size":2921538});
 
 define({id: "0b7af5d0", mode: "inline", inputs: ["d3","data","display"], body: async (d3,data,display) => {
 display(await(
@@ -223,27 +223,41 @@ return {topo,world,countries};
     <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
     <li class="observablehq-link"><a href="./">Observable Sandbox</a></li>
   </ol>
-  <ol>
-    <li class="observablehq-link"><a href="./bars">Bars and Pubs in Paris</a></li>
-    <li class="observablehq-link"><a href="./bars2">Bars and Pubs in Paris (2)</a></li>
-    <li class="observablehq-link"><a href="./deck_test1">A simple circle</a></li>
-    <li class="observablehq-link observablehq-link-active"><a href="./deckfromfil">An example from Fil</a></li>
-    <li class="observablehq-link"><a href="./geoviz_globe">Untitled</a></li>
-    <li class="observablehq-link"><a href="./gridviz">Gridviz</a></li>
-    <li class="observablehq-link"><a href="./maplibre">Untitled</a></li>
-    <li class="observablehq-link"><a href="./webR">Test some things with webR</a></li>
-  </ol>
+  <div id="observablehq-search"><input type="search" placeholder="Search"></div>
+  <div id="observablehq-search-results"></div>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.0e466967.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <section>
+    <summary>Geoviz</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./geoviz_globe">Globe</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>Maplibre</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>Deckgl</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
+    <li class="observablehq-link"><a href="./bars">Bars in Paris</a></li>
+    <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>webR</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./webR">test webR</a></li>
+    </ol>
+  </section>
 </nav>
 <script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
-<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
-<nav>
-<div>Contents</div>
-<ol>
-<li class="observablehq-secondary-link"><a href="#accidents"> ACCIDENTS</a></li>
-</ol>
-</nav>
-</aside>
 <div id="observablehq-center">
+<header id="observablehq-header">
+<hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
+</header>
 <main id="observablehq-main" class="observablehq">
 <h1 id="an-example-from-fil" tabindex="-1"><a class="observablehq-header-anchor" href="#an-example-from-fil">An example from Fil</a></h1>
 <p>See <a href="https://observablehq.observablehq.cloud/pangea/party/deck.gl-map" target="_blank" rel="noopener noreferrer">https://observablehq.observablehq.cloud/pangea/party/deck.gl-map</a></p>
@@ -268,7 +282,6 @@ return {topo,world,countries};
 <div class="observablehq observablehq--block"><!--:f7b13ea2:--></div>
 </main>
 <footer id="observablehq-footer">
-<nav><a rel="prev" href="./deck_test1"><span>A simple circle</span></a><a rel="next" href="./geoviz_globe"><span>Untitled</span></a></nav>
-<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2024-09-06T12:16:42">Sep 6, 2024</a>.</div>
+<div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>
 </footer>
 </div>
