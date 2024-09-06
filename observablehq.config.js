@@ -32,6 +32,13 @@ export default {
     //   name: "Examples from others",
     //   pages: [{ name: "Deck-gl from Fil", path: "/deckfromfil" }],
     // },
+    {
+      name: "Sql",
+      pages: [
+        { name: "test", path: "/duckdb" },
+        { name: "test2", path: "/duckdb2" },
+      ],
+    },
   ],
 
   // Content to add to the head of the page, e.g. for a favicon:
