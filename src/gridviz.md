@@ -3,7 +3,6 @@
 ```js
 import * as gridviz from 'gridviz'
 ```
-### Map
 
 <div id="map" style="width: 1OOOpx; height: 650px"></div>
 

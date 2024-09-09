@@ -33,7 +33,7 @@ export default {
     },
     {
       name: "gridviz",
-      pages: [{ name: "test gridviz", path: "/gridviz" }],
+      pages: [{ name: "test 1", path: "/gridviz" }],
     },
 
     {
