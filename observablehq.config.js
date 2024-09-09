@@ -14,7 +14,14 @@ export default {
 
     {
       name: "Maplibre",
-      pages: [{ name: "a simple map", path: "/maplibre" }],
+      pages: [
+        { name: "a simple map", path: "/maplibre" },
+        { name: "tests", path: "/maplibre2" },
+      ],
+    },
+    {
+      name: "Leaflet",
+      pages: [],
     },
     {
       name: "Deckgl",
@@ -26,7 +33,10 @@ export default {
     },
     {
       name: "webR",
-      pages: [{ name: "test webR", path: "/webR" }],
+      pages: [
+        { name: "test webR", path: "/webR" },
+        { name: "test webR 2", path: "/webR2" },
+      ],
     },
     // {
     //   name: "Examples from others",
