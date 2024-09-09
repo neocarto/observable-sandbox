@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="generator" content="Observable Framework v1.11.0">
-<title>Gridviz | Observable Sandbox</title>
+<title>Test gridviz | Observable Sandbox</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
@@ -11,42 +11,59 @@
 <link rel="modulepreload" href="./_observablehq/client.418381df.js">
 <link rel="modulepreload" href="./_observablehq/runtime.5f0e99b2.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.ecd269e5.js">
+<link rel="modulepreload" href="./_node/gridviz@3.0.9/index.bd1d7f2d.js">
+<link rel="modulepreload" href="./_node/d3-selection@3.0.0/index.13204b25.js">
+<link rel="modulepreload" href="./_node/d3-zoom@3.0.0/index.0e732a91.js">
+<link rel="modulepreload" href="./_node/d3-fetch@3.0.1/index.e91238ad.js">
+<link rel="modulepreload" href="./_node/d3-random@3.0.1/index.fd2cc361.js">
+<link rel="modulepreload" href="./_node/d3-color@3.1.0/index.e8c126ff.js">
+<link rel="modulepreload" href="./_node/d3-array@3.2.4/index.f89e3560.js">
+<link rel="modulepreload" href="./_node/d3-scale@4.0.2/index.61617510.js">
+<link rel="modulepreload" href="./_node/d3-interpolate@3.0.1/index.7ed7c7fe.js">
+<link rel="modulepreload" href="./_node/d3-format@3.1.0/index.75f84505.js">
+<link rel="modulepreload" href="./_node/d3-dispatch@3.0.1/index.be49ca5f.js">
+<link rel="modulepreload" href="./_node/d3-drag@3.0.0/index.8e5f73cc.js">
+<link rel="modulepreload" href="./_node/d3-transition@3.0.1/index.d140d658.js">
+<link rel="modulepreload" href="./_node/d3-dsv@3.0.1/index.a1fe4c7b.js">
+<link rel="modulepreload" href="./_node/internmap@2.0.3/index.4106013c.js">
+<link rel="modulepreload" href="./_node/d3-time@3.1.0/index.8fcc123e.js">
+<link rel="modulepreload" href="./_node/d3-time-format@4.1.0/index.20c5f3ca.js">
+<link rel="modulepreload" href="./_node/d3-timer@3.0.1/index.0ee6092b.js">
+<link rel="modulepreload" href="./_node/d3-ease@3.0.1/index.09153f73.js">
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
 import {define} from "./_observablehq/client.418381df.js";
 
-define({id: "341b8381", inputs: ["gridviz","display"], body: async (gridviz,display) => {
-display(await(
-gridviz
-))
+define({id: "ad9c2471", outputs: ["gridviz"], body: async () => {
+const gridviz = await import("./_node/gridviz@3.0.9/index.bd1d7f2d.js");
+
+return {gridviz};
 }});
 
-define({id: "d200c07a", inputs: ["gridviz"], outputs: ["map"], body: (gridviz) => {
-//define map with initial view
-    const map = new gridviz.Map(document.getElementById('map'), { x: 3900000, y: 2960000, z: 500, zoomExtent: [100, 1500] })
+define({id: "007e2df2", inputs: ["gridviz"], outputs: ["map","dataset","colorFunction","style"], body: (gridviz) => {
+    const map = new gridviz.Map(document.getElementById('map'), { x: 4200000, y: 2600000, z: 3000, backgroundColor: "#EADDCA" })
         .addZoomButtons()
 
-    // //define dataset
-    // const dataset = new gridviz.CSVGrid(map, "https://raw.githubusercontent.com/eurostat/gridviz/master/assets/csv/Europe/pop_2018_10km.csv", 10000)
+// define dataset
+const dataset = new gridviz.CSVGrid(map, "https://raw.githubusercontent.com/eurostat/gridviz/master/assets/csv/Europe/pop_2018_10km.csv", 10000)
 
-    // //define style
-    // const scale = gridviz.powerScale(0.4)
-    // const style = new gridviz.NinjaStarStyle({
-    //     color: () => 'purple',
-    //     size: (c, r, z) => scale(c.population / 300000)
-    // })
+//define color for each cell
+const colorFunction = (cell) => {
+    if (cell.population > 150000) return "#993404"
+    else if (cell.population > 60000) return "#d95f0e"
+    else if (cell.population > 20000) return "#fe9929"
+    else if (cell.population > 6000) return "#fec44f"
+    else if (cell.population > 1500) return "#fee391"
+    else return "#ffffd4"
+}
 
-    // //add layer to map
-    // map.layers = [new gridviz.GridLayer(dataset, [style])]
+//define style
+const style = new gridviz.ShapeColorSizeStyle({ color: colorFunction })
 
-return {map};
-}});
-
-define({id: "75aefc3a", body: () => {
-// Data Import
-// const data = await FileAttachment("/data/grid.json").json()
-// display(Inputs.table(data))
+//add layer to map
+map.layers = [new gridviz.GridLayer(dataset, [style])]
+return {map,dataset,colorFunction,style};
 }});
 
 </script>
@@ -59,7 +76,7 @@ define({id: "75aefc3a", body: () => {
   </ol>
   <div id="observablehq-search"><input type="search" placeholder="Search"></div>
   <div id="observablehq-search-results"></div>
-  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c04fa1db.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c1d3a68e.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
   <section>
     <summary>Geoviz</summary>
     <ol>
@@ -86,6 +103,12 @@ define({id: "75aefc3a", body: () => {
     <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
     </ol>
   </section>
+  <section class="observablehq-section-active">
+    <summary>gridviz</summary>
+    <ol>
+    <li class="observablehq-link observablehq-link-active"><a href="./gridviz">test gridviz</a></li>
+    </ol>
+  </section>
   <section>
     <summary>webR</summary>
     <ol>
@@ -107,13 +130,11 @@ define({id: "75aefc3a", body: () => {
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
-<h1 id="gridviz" tabindex="-1"><a class="observablehq-header-anchor" href="#gridviz">Gridviz</a></h1>
-<div class="observablehq observablehq--block">
-  <div class="observablehq--inspect observablehq--error">SyntaxError: Unterminated string constant (2:25)</div>
-</div>
-<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:341b8381:--></div>
-<div class="observablehq observablehq--block"><!--:d200c07a:--></div>
-<div class="observablehq observablehq--block"><!--:75aefc3a:--></div>
+<h1 id="test-gridviz" tabindex="-1"><a class="observablehq-header-anchor" href="#test-gridviz">Test gridviz</a></h1>
+<div class="observablehq observablehq--block"><!--:ad9c2471:--></div>
+<h3 id="map" tabindex="-1"><a class="observablehq-header-anchor" href="#map">Map</a></h3>
+<div id="map" style="width: 1OOOpx; height: 650px"></div>
+<div class="observablehq observablehq--block"><!--:007e2df2:--></div>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>

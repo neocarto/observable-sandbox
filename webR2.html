@@ -6,48 +6,71 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
-<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
-<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
 <link rel="modulepreload" href="./_observablehq/client.418381df.js">
 <link rel="modulepreload" href="./_observablehq/runtime.5f0e99b2.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.ecd269e5.js">
 <link rel="modulepreload" href="./_npm/webr@0.4.1/ac5e0883.js">
-<link rel="modulepreload" href="./_observablehq/stdlib/inputs.989d304e.js">
-<link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
-<link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
 import {define} from "./_observablehq/client.418381df.js";
+import {registerFile} from "./_observablehq/stdlib.ecd269e5.js";
 
-define({id: "81ecfe93", outputs: ["WebR","webR"], body: async () => {
+registerFile("./data/africa.json", {"name":"./data/africa.json","mimeType":"application/json","path":"./_file/data/africa.86cecabe.json","lastModified":1725890898456,"size":56895});
+
+define({id: "c221dc38", outputs: ["WebR","webR"], body: async () => {
 const {WebR} = await import("./_npm/webr@0.4.1/ac5e0883.js");
 const webR = new WebR();
-await webR.installPackages(['sf'])
+await webR.installPackages(['sf', 'mapsf', 'geojsonsf'])
 await webR.evalRVoid("library(sf)");
+await webR.evalRVoid("library(mapsf)");
+await webR.evalRVoid("library(geojsonsf)");
 await webR.init();
 return {WebR,webR};
 }});
 
-define({id: "c6acf0bc", inputs: ["view","Inputs"], outputs: ["file"], body: (view,Inputs) => {
-const file = view(Inputs.file({label: "file", required: true}))
-return {file};
+define({id: "f3c534f9", inputs: ["webR"], outputs: ["data","metadata","options"], body: async (webR) => {
+// Create mountpoint
+await webR.FS.mkdir('/data')
+
+// Download image data
+const data = await fetch('https://example.com/output.data');
+const metadata = await fetch('https://example.com/output.js.metadata');
+
+// Mount image data
+const options = {
+  packages: [{
+    blob: await data.blob(),
+    metadata: await metadata.json(),
+  }],
+}
+await webR.FS.mount("WORKERFS", options, '/data');
+return {data,metadata,options};
 }});
 
-define({id: "9e483143", inputs: ["view","Inputs"], outputs: ["nb"], body: (view,Inputs) => {
-const nb = view(Inputs.range([10, 100], {value: 100, label: "nb", step: 1}));
-return {nb};
+define({id: "17fab45c", inputs: ["FileAttachment","webR"], outputs: ["africa"], body: async (FileAttachment,webR) => {
+const africa = await FileAttachment("./data/africa.json").json();
+await webR.objs.globalEnv.bind("africastr", JSON.stringify(africa));
+return {africa};
 }});
 
-define({id: "70cb3048", inputs: ["webR","file"], outputs: ["result"], body: async (webR,file) => {
-let result = await webR.evalR(`
-x <- st_read(${file})
-`)
-// let output = await result.toArray();
-// display(output)
-return {result};
+define({id: "4e327278", inputs: ["webR"], outputs: ["shelter","capture"], body: async (webR) => {
+ const shelter = await new webR.Shelter();
+ const capture = await shelter.captureR(`
+ x <- geojson_sf(africastr)
+ plot(x)
+ `);
+       capture.images.forEach((img) => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        document.getElementById("plot-output").appendChild(canvas);
+      });
+return {shelter,capture};
 }});
 
 </script>
@@ -60,7 +83,7 @@ return {result};
   </ol>
   <div id="observablehq-search"><input type="search" placeholder="Search"></div>
   <div id="observablehq-search-results"></div>
-  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c04fa1db.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c1d3a68e.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
   <section>
     <summary>Geoviz</summary>
     <ol>
@@ -87,6 +110,12 @@ return {result};
     <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
     </ol>
   </section>
+  <section>
+    <summary>gridviz</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./gridviz">test gridviz</a></li>
+    </ol>
+  </section>
   <section class="observablehq-section-active">
     <summary>webR</summary>
     <ol>
@@ -108,10 +137,11 @@ return {result};
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
-<div class="observablehq observablehq--block"><!--:81ecfe93:--></div>
-<div class="observablehq observablehq--block"><!--:c6acf0bc:--></div>
-<div class="observablehq observablehq--block"><!--:9e483143:--></div>
-<div class="observablehq observablehq--block"><!--:70cb3048:--></div>
+<div class="observablehq observablehq--block"><!--:c221dc38:--></div>
+<div class="observablehq observablehq--block"><!--:f3c534f9:--></div>
+<div id="plot-output"></div>
+<div class="observablehq observablehq--block"><!--:17fab45c:--></div>
+<div class="observablehq observablehq--block"><!--:4e327278:--></div>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>

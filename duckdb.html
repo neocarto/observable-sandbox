@@ -29,7 +29,7 @@ import {define} from "./_observablehq/client.418381df.js";
 import {registerFile, FileAttachment} from "./_observablehq/stdlib.ecd269e5.js";
 import {registerTable} from "./_observablehq/stdlib/duckdb.95295d2b.js";
 
-registerFile("./data/worlddata.csv", {"name":"./data/worlddata.csv","mimeType":"text/csv","path":"./_file/data/worlddata.56b6caf7.csv","lastModified":1725874050169,"size":15954});
+registerFile("./data/worlddata.csv", {"name":"./data/worlddata.csv","mimeType":"text/csv","path":"./_file/data/worlddata.56b6caf7.csv","lastModified":1725890898492,"size":15954});
 registerTable("data", FileAttachment("./data/worlddata.csv"));
 registerTable("quakes", "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.csv");
 
@@ -128,7 +128,7 @@ display(x)
   </ol>
   <div id="observablehq-search"><input type="search" placeholder="Search"></div>
   <div id="observablehq-search-results"></div>
-  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c04fa1db.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c1d3a68e.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
   <section>
     <summary>Geoviz</summary>
     <ol>
@@ -153,6 +153,12 @@ display(x)
     <li class="observablehq-link"><a href="./deck_test1">a circle</a></li>
     <li class="observablehq-link"><a href="./bars">Bars in Paris</a></li>
     <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>gridviz</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./gridviz">test gridviz</a></li>
     </ol>
   </section>
   <section>
