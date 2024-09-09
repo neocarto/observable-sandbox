@@ -6,63 +6,48 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
 <link rel="modulepreload" href="./_observablehq/client.418381df.js">
 <link rel="modulepreload" href="./_observablehq/runtime.5f0e99b2.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.ecd269e5.js">
-<link rel="modulepreload" href="./_npm/maplibre-gl@4.7.0/93efe05b.js">
+<link rel="modulepreload" href="./_npm/webr@0.4.1/ac5e0883.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.989d304e.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
 import {define} from "./_observablehq/client.418381df.js";
 
-define({id: "0b9fcb3e", inputs: ["display","html"], outputs: ["maplibregl"], body: async (display,html) => {
-const {default: maplibregl} = await import("./_npm/maplibre-gl@4.7.0/93efe05b.js");
-display(html`<link rel="stylesheet" href="${new URL("./_npm/maplibre-gl@4.7.0/dist/maplibre-gl.css", location).href}">`);
-
-return {maplibregl};
+define({id: "81ecfe93", outputs: ["WebR","webR"], body: async () => {
+const {WebR} = await import("./_npm/webr@0.4.1/ac5e0883.js");
+const webR = new WebR();
+await webR.installPackages(['sf'])
+await webR.evalRVoid("library(sf)");
+await webR.init();
+return {WebR,webR};
 }});
 
-define({id: "2368a9f2", inputs: ["maplibregl"], outputs: ["map"], body: (maplibregl) => {
-const map = new maplibregl.Map({
-  container: "map",
-  zoom: 12,
-  center: [11.39085, 47.27574],
-  pitch: 52,
-  hash: true,
-  style: {
-    version: 8,
-    sources: {
-      osm: {
-        type: "raster",
-        tiles: ["https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"],
-        tileSize: 256,
-        attribution: "&copy; OpenStreetMap Contributors",
-        maxzoom: 20
-      }
-    },
-    layers: [
-      {
-        id: "osm",
-        type: "raster",
-        source: "osm"
-      }
-    ]
-  },
-  maxZoom: 18,
-  maxPitch: 85
-});
+define({id: "c6acf0bc", inputs: ["view","Inputs"], outputs: ["file"], body: (view,Inputs) => {
+const file = view(Inputs.file({label: "file", required: true}))
+return {file};
+}});
 
-map.addControl(
-  new maplibregl.NavigationControl({
-    visualizePitch: true,
-    showZoom: true,
-    showCompass: true
-  })
-);
-return {map};
+define({id: "9e483143", inputs: ["view","Inputs"], outputs: ["nb"], body: (view,Inputs) => {
+const nb = view(Inputs.range([10, 100], {value: 100, label: "nb", step: 1}));
+return {nb};
+}});
+
+define({id: "70cb3048", inputs: ["webR","file"], outputs: ["result"], body: async (webR,file) => {
+let result = await webR.evalR(`
+x <- st_read(${file})
+`)
+// let output = await result.toArray();
+// display(output)
+return {result};
 }});
 
 </script>
@@ -82,10 +67,10 @@ return {map};
     <li class="observablehq-link"><a href="./geoviz_globe">Globe</a></li>
     </ol>
   </section>
-  <section class="observablehq-section-active">
+  <section>
     <summary>Maplibre</summary>
     <ol>
-    <li class="observablehq-link observablehq-link-active"><a href="./maplibre">a simple map</a></li>
+    <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
     <li class="observablehq-link"><a href="./maplibre2">tests</a></li>
     </ol>
   </section>
@@ -102,11 +87,11 @@ return {map};
     <li class="observablehq-link"><a href="./bars2">Bars in Paris (2)</a></li>
     </ol>
   </section>
-  <section>
+  <section class="observablehq-section-active">
     <summary>webR</summary>
     <ol>
     <li class="observablehq-link"><a href="./webR">test webR</a></li>
-    <li class="observablehq-link"><a href="./webR2">test webR 2</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./webR2">test webR 2</a></li>
     </ol>
   </section>
   <section>
@@ -123,11 +108,10 @@ return {map};
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
-<div id="map" style="width: 100%; height: 450px;"></div>
-<!-- <link rel="stylesheet" href="${import.meta.resolve("npm:maplibre-gl/dist/maplibre-gl.css")}"> -->
-<!-- <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"> -->
-<div class="observablehq observablehq--block"><!--:0b9fcb3e:--></div>
-<div class="observablehq observablehq--block"><!--:2368a9f2:--></div>
+<div class="observablehq observablehq--block"><!--:81ecfe93:--></div>
+<div class="observablehq observablehq--block"><!--:c6acf0bc:--></div>
+<div class="observablehq observablehq--block"><!--:9e483143:--></div>
+<div class="observablehq observablehq--block"><!--:70cb3048:--></div>
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>

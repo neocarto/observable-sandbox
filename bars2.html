@@ -13,7 +13,7 @@
 <link rel="modulepreload" href="./_observablehq/client.418381df.js">
 <link rel="modulepreload" href="./_observablehq/runtime.5f0e99b2.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.ecd269e5.js">
-<link rel="modulepreload" href="./_npm/maplibre-gl@4.6.0/a215d58a.js">
+<link rel="modulepreload" href="./_npm/maplibre-gl@4.7.0/93efe05b.js">
 <link rel="modulepreload" href="./_npm/deck.gl@9.0.29/dist.min.js.d8da2739.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.989d304e.js">
@@ -24,12 +24,12 @@
 import {define} from "./_observablehq/client.418381df.js";
 import {registerFile} from "./_observablehq/stdlib.ecd269e5.js";
 
-registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1725636027415,"size":178000});
+registerFile("./data/bars.json", {"name":"./data/bars.json","mimeType":"application/json","path":"./_file/data/bars.c6f4677a.json","lastModified":1725874050137,"size":178000});
 
 define({id: "8d29335d", inputs: ["display","html"], outputs: ["maplibregl","deck","DeckGL","AmbientLight","GeoJsonLayer","HexagonLayer","LightingEffect","PointLight","MapboxOverlay","ScatterplotLayer","ArcLayer"], body: async (display,html) => {
-const [{default: maplibregl}, {default: deck}] = await Promise.all([import("./_npm/maplibre-gl@4.6.0/a215d58a.js"), import("./_npm/deck.gl@9.0.29/dist.min.js.d8da2739.js")]);
+const [{default: maplibregl}, {default: deck}] = await Promise.all([import("./_npm/maplibre-gl@4.7.0/93efe05b.js"), import("./_npm/deck.gl@9.0.29/dist.min.js.d8da2739.js")]);
 // Libraries
-display(html`<link rel="stylesheet" href="${new URL("./_npm/maplibre-gl@4.6.0/dist/maplibre-gl.css", location).href}">`);
+display(html`<link rel="stylesheet" href="${new URL("./_npm/maplibre-gl@4.7.0/dist/maplibre-gl.css", location).href}">`);
 const {DeckGL, AmbientLight, GeoJsonLayer, HexagonLayer, LightingEffect, PointLight, MapboxOverlay, ScatterplotLayer, ArcLayer} = deck;
 return {maplibregl,deck,DeckGL,AmbientLight,GeoJsonLayer,HexagonLayer,LightingEffect,PointLight,MapboxOverlay,ScatterplotLayer,ArcLayer};
 }});
@@ -137,7 +137,7 @@ return {data};
   </ol>
   <div id="observablehq-search"><input type="search" placeholder="Search"></div>
   <div id="observablehq-search-results"></div>
-  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c8cdfdca.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.c04fa1db.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
   <section>
     <summary>Geoviz</summary>
     <ol>
@@ -148,6 +148,12 @@ return {data};
     <summary>Maplibre</summary>
     <ol>
     <li class="observablehq-link"><a href="./maplibre">a simple map</a></li>
+    <li class="observablehq-link"><a href="./maplibre2">tests</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>Leaflet</summary>
+    <ol>
     </ol>
   </section>
   <section class="observablehq-section-active">
@@ -162,6 +168,7 @@ return {data};
     <summary>webR</summary>
     <ol>
     <li class="observablehq-link"><a href="./webR">test webR</a></li>
+    <li class="observablehq-link"><a href="./webR2">test webR 2</a></li>
     </ol>
   </section>
   <section>
