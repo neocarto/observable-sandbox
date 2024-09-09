@@ -1,37 +1,32 @@
-# Gridviz
+# Test gridviz
 
 ```js
-// Librairies
-import * as gridviz from 'npm:gridviz/distgridviz@3.0.7
-//const {Map, SquareColorWebGLStyle} = gridviz;
+import * as gridviz from 'gridviz'
 ```
+### Map
+
+<div id="map" style="width: 1OOOpx; height: 650px"></div>
 
 ```js
-gridviz
-```
-
-```js
-//define map with initial view
-    const map = new gridviz.Map(document.getElementById('map'), { x: 3900000, y: 2960000, z: 500, zoomExtent: [100, 1500] })
+    const map = new gridviz.Map(document.getElementById('map'), { x: 4200000, y: 2600000, z: 3000, backgroundColor: "#EADDCA" })
         .addZoomButtons()
 
-    // //define dataset
-    // const dataset = new gridviz.CSVGrid(map, "https://raw.githubusercontent.com/eurostat/gridviz/master/assets/csv/Europe/pop_2018_10km.csv", 10000)
+// define dataset
+const dataset = new gridviz.CSVGrid(map, "https://raw.githubusercontent.com/eurostat/gridviz/master/assets/csv/Europe/pop_2018_10km.csv", 10000)
 
-    // //define style
-    // const scale = gridviz.powerScale(0.4)
-    // const style = new gridviz.NinjaStarStyle({
-    //     color: () => 'purple',
-    //     size: (c, r, z) => scale(c.population / 300000)
-    // })
+//define color for each cell
+const colorFunction = (cell) => {
+    if (cell.population > 150000) return "#993404"
+    else if (cell.population > 60000) return "#d95f0e"
+    else if (cell.population > 20000) return "#fe9929"
+    else if (cell.population > 6000) return "#fec44f"
+    else if (cell.population > 1500) return "#fee391"
+    else return "#ffffd4"
+}
 
-    // //add layer to map
-    // map.layers = [new gridviz.GridLayer(dataset, [style])]
+//define style
+const style = new gridviz.ShapeColorSizeStyle({ color: colorFunction })
 
-```
-
-```js
-// Data Import
-// const data = await FileAttachment("/data/grid.json").json()
-// display(Inputs.table(data))
+//add layer to map
+map.layers = [new gridviz.GridLayer(dataset, [style])]
 ```

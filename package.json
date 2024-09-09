@@ -13,6 +13,7 @@
     "@turf/bbox": "^7.1.0",
     "d3-dsv": "^3.0.1",
     "d3-time-format": "^4.1.0",
+    "gridviz": "^3.0.9",
     "maplibre-gl": "^4.7.0",
     "turf": "^3.0.14"
   },

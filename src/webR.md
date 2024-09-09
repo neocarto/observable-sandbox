@@ -22,7 +22,6 @@ display(output)
 let shelter = await new webR.Shelter();
 let result2 = await shelter.captureR(`print(rnorm(${nb},5,1))`);
 display(result2.output);
-
 shelter.purge();
 ```
 

@@ -32,6 +32,11 @@ export default {
       ],
     },
     {
+      name: "gridviz",
+      pages: [{ name: "test gridviz", path: "/gridviz" }],
+    },
+
+    {
       name: "webR",
       pages: [
         { name: "test webR", path: "/webR" },
