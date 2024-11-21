@@ -1,22 +1,62 @@
 <!DOCTYPE html>
+<html>
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="generator" content="Observable Framework v1.11.0">
+<meta name="generator" content="Observable Framework v1.13.0">
 <title>Observable Sandbox</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.dcdbf18e.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.6e6037b3.css">
-<link rel="modulepreload" href="./_observablehq/client.418381df.js">
-<link rel="modulepreload" href="./_observablehq/runtime.5f0e99b2.js">
-<link rel="modulepreload" href="./_observablehq/stdlib.ecd269e5.js">
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.dcdbf18e.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="modulepreload" href="./_observablehq/client.784dfb64.js">
+<link rel="modulepreload" href="./_observablehq/runtime.9393ab6d.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.09a2d415.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/duckdb.3ee8eb60.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.6e66b2a7.js">
+<link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.29.0/34eaf57e.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
+<link rel="modulepreload" href="./_npm/apache-arrow@18.0.0/a639cc2a.js">
+<link rel="modulepreload" href="./_npm/tslib@2.8.1/0acfc2bf.js">
+<link rel="modulepreload" href="./_npm/flatbuffers@24.3.25/fd24637b.js">
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
-import "./_observablehq/client.418381df.js";
+import {define} from "./_observablehq/client.784dfb64.js";
+import {registerFile} from "./_observablehq/stdlib.09a2d415.js";
+
+registerFile("./data/CNTR_RG_20M_2020_4326.json", {"name":"./data/CNTR_RG_20M_2020_4326.json","mimeType":"application/json","path":"./_file/data/CNTR_RG_20M_2020_4326.12903f6e.json","lastModified":1732207368656,"size":1889772});
+registerFile("./data/worlddata.csv", {"name":"./data/worlddata.csv","mimeType":"text/csv","path":"./_file/data/worlddata.56b6caf7.csv","lastModified":1732207335592,"size":15954});
+
+define({id: "30880abd", inputs: ["display","Inputs","sql"], body: async (display,Inputs,sql) => {
+display(Inputs.table(await sql`SELECT * FROM st_drivers();`, {select: false}));
+}});
+
+define({id: "648efa2c", inputs: ["FileAttachment"], outputs: ["world","stats"], body: async (FileAttachment) => {
+const world = await FileAttachment("./data/CNTR_RG_20M_2020_4326.json").url();
+const stats = await FileAttachment("./data/worlddata.csv").url();
+return {world,stats};
+}});
+
+define({id: "7e155606", inputs: ["display","Inputs","sql","world"], body: async (display,Inputs,sql,world) => {
+display(Inputs.table(await sql`CREATE OR REPLACE TABLE world AS FROM ST_Read(${world});`, {select: false}));
+}});
+
+define({id: "8b00896b", inputs: ["display","Inputs","sql","stats"], body: async (display,Inputs,sql,stats) => {
+display(Inputs.table(await sql`CREATE OR REPLACE TABLE data AS FROM read_csv(${stats});`, {select: false}));
+}});
+
+define({id: "14d6a516", inputs: ["display","Inputs","sql"], body: async (display,Inputs,sql) => {
+display(Inputs.table(await sql`SELECT * from data;`, {select: false}));
+}});
 
 </script>
+</head>
+<body>
 <input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
 <label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
 <nav id="observablehq-sidebar">
@@ -26,7 +66,7 @@ import "./_observablehq/client.418381df.js";
   </ol>
   <div id="observablehq-search"><input type="search" placeholder="Search"></div>
   <div id="observablehq-search-results"></div>
-  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.772a001e.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
+  <script>{const o=document.querySelector("#observablehq-search");o.setAttribute("data-shortcut",`${/Mac|iPhone/.test(navigator.platform)?"\u2318":"Alt-"}K`);const t=o.querySelector("input"),r=()=>import("./_observablehq/search.ab1f5c9d.js");t.addEventListener("focus",r,{once:!0}),t.addEventListener("keydown",r,{once:!0});const c=document.querySelector("#observablehq-sidebar-toggle");addEventListener("keydown",e=>{(e.code==="KeyK"&&e.metaKey&&!e.altKey&&!e.ctrlKey||e.key==="/"&&!e.metaKey&&!e.altKey&&!e.ctrlKey&&e.target===document.body)&&(c.checked?t.focus():(c.click(),t.focus(),c.click()),t.select(),e.preventDefault())});}</script>
   <section>
     <summary>Geoviz</summary>
     <ol>
@@ -67,22 +107,43 @@ import "./_observablehq/client.418381df.js";
     </ol>
   </section>
   <section class="observablehq-section-active">
-    <summary>Sql</summary>
+    <summary>duckdb</summary>
     <ol>
-    <li class="observablehq-link"><a href="./duckdb">test</a></li>
-    <li class="observablehq-link observablehq-link-active"><a href="./duckdb2">test2</a></li>
+    <li class="observablehq-link"><a href="./duckdb">Hello duckdb</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./duckdb2">Spatial extension</a></li>
     </ol>
   </section>
 </nav>
-<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<script>{const e=document.querySelector("#observablehq-sidebar"),t=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?t.checked=r==="true":t.indeterminate=!0;for(const o of document.querySelectorAll("#observablehq-sidebar summary")){const s=o.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${o.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
 <div id="observablehq-center">
 <header id="observablehq-header">
 <hr><div align="center"><h1>- neocarto's sandbox -</h1>(with Observable Framework)</div><hr>
 </header>
 <main id="observablehq-main" class="observablehq">
-<p>duckdb spatial  : see <a href="https://github.com/observablehq/framework/issues/1007" target="_blank" rel="noopener noreferrer">https://github.com/observablehq/framework/issues/1007</a></p>
+<h2 id="some-sests-with-duckdb-spatial-extension" tabindex="-1"><a class="observablehq-header-anchor" href="#some-sests-with-duckdb-spatial-extension">Some sests with duckdb spatial extension</a></h2>
+<p>See <a href="https://duckdb.org/2023/04/28/spatial.html" target="_blank" rel="noopener noreferrer">https://duckdb.org/2023/04/28/spatial.html</a> &amp; <a href="https://observablehq.com/framework/lib/duckdb" target="_blank" rel="noopener noreferrer">https://observablehq.com/framework/lib/duckdb</a> &amp; <a href="https://duckdb.org/docs/extensions/spatial/overview" target="_blank" rel="noopener noreferrer">https://duckdb.org/docs/extensions/spatial/overview</a> &amp; <a href="https://observablehq.observablehq.cloud/pangea/duckdb/spatial" target="_blank" rel="noopener noreferrer">https://observablehq.observablehq.cloud/pangea/duckdb/spatial</a></p>
+<p>The spatial extension configured in <code>observablehq.config.js</code>.</p>
+<p>SELECT * FROM st_drivers();</p>
+<div class="observablehq observablehq--block"><!--:30880abd:--></div>
+<div class="observablehq observablehq--block"><!--:648efa2c:--></div>
+<p>geometries</p>
+<div class="observablehq observablehq--block"><!--:7e155606:--></div>
+<p>stats</p>
+<div class="observablehq observablehq--block"><!--:8b00896b:--></div>
+<p>join</p>
+<div class="observablehq observablehq--block"><!--:14d6a516:--></div>
+<!-- ```sql
+SELECT CNTR_ID AS id, 
+       NAME_ENGL AS name,
+       ST_AsGeoJSON(geom) AS "geom"
+       from world
+LEFT JOIN stats
+    ON counties.id = unemployment.id
+``` -->
 </main>
 <footer id="observablehq-footer">
 <div><div align="center">Nicolas LAMBERT (CNRS/RIATE)<br>Built with Observable Framework - Code source: <a href="https://github.com/neocarto/observable-sandbox" target="_blank" rel="noopener noreferrer">github.com/neocarto/observable-sandbox</a></div></div>
 </footer>
 </div>
+</body>
+</html>
