@@ -6,6 +6,10 @@ export default {
   // The pages and sections in the sidebar. If you don’t specify this option,
   // all pages will be listed in alphabetical order. Listing pages explicitly
   // lets you organize them into sections and have unlisted pages.
+
+  duckdb: {
+    extensions: ["spatial", "h3"],
+  },
   pages: [
     {
       name: "Geoviz",
@@ -48,10 +52,10 @@ export default {
     //   pages: [{ name: "Deck-gl from Fil", path: "/deckfromfil" }],
     // },
     {
-      name: "Sql",
+      name: "duckdb",
       pages: [
-        { name: "test", path: "/duckdb" },
-        { name: "test2", path: "/duckdb2" },
+        { name: "Hello duckdb", path: "/duckdb" },
+        { name: "Spatial extension", path: "/duckdb2" },
       ],
     },
   ],
